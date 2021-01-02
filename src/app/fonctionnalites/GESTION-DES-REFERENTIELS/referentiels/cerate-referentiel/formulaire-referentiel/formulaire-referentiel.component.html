@@ -1,0 +1,75 @@
+<div class="addRef">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"><img src="assets/img/sonatel.png" width="100" alt="Sonatel Academi" fxFlex="80%">
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Libelle</label>
+        <mat-form-field>
+          <input type="text" matInput>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Presentation</label>
+        <mat-form-field>
+         <textarea matInput></textarea>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Competence</label>
+        <div class="competences">
+            <div class="aroundAdmin">
+              Développer le back-end d'une application web
+              <button mat-icon-button><mat-icon>clear</mat-icon></button>
+            </div>
+          <div class="aroundAdmin">
+            Développer le front-end d'une application web
+              <button mat-icon-button><mat-icon>clear</mat-icon></button>
+            </div>
+        </div>
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Prgramme</label>
+          <input type="file"  style="display: none" #inputupload>
+          <button mat-raised-button (click)="inputupload.click()">Uploader le programme</button>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Crictere D'evaluation</label>
+        <div class="competences">
+          <div class="aroundAdmin">
+            Un portfolio comprenant la réalisation d'au moins 9 projets tout au long de la formation
+          </div>
+          <div class="aroundAdmin">
+            Une soutenance devant un jury de professionnels
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Crictere D'admission</label>
+        <div class="competences">
+          <div class="aroundAdmin">
+            Un portfolio comprenant la réalisation d'au moins 9 projets tout au long de la formation
+          </div>
+          <div class="aroundAdmin">
+            Une soutenance devant un jury de professionnels
+            <button mat-icon-button><mat-icon>clear</mat-icon></button>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label></label>
+        <button mat-raised-button color="primary">Soumettre</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

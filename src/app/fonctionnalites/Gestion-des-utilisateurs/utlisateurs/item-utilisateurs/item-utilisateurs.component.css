@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+  padding: 13px;
+}
+
+td, th {
+  width: 25%;
+}
+.maclassList{
+  width:auto;
+  height:auto;
+}
+.divdown{
+  width: 100%;
+  height: auto;
+}

@@ -1,0 +1,71 @@
+<div class="maclassList">
+  <table mat-table [dataSource]="users" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
+      <th mat-header-cell *matHeaderCellDef>
+        <span *ngIf="col !== '$$edit' && col !== '$$supp' && col !== '$$liste'">
+          {{col}}
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let element" >
+        <div *ngIf="!element.isEdit">
+          <div  *ngIf="col === '$$edit'" style="">
+            <button mat-icon-button (click)="element.isEdit = !element.isEdit"><mat-icon>update</mat-icon></button>
+          </div>
+          <span #spanHeader *ngIf="col !== 'photo' && col !== 'profile'">
+            {{element[col]}}
+          </span>
+          <span *ngIf="col === 'photo'" #spanHeader>
+             <img  src="{{'data:image/png;base64,' + element[col]}}" width="150px" alt="{{element.username}}">
+          </span>
+          <span #spanHeader *ngIf=" col == 'profile'">
+              {{element.profils.libelle}}
+          </span>
+        </div>
+        <div  *ngIf="col === '$$supp'" >
+          <button mat-icon-button (click)="deleteUser(element.id)" ><mat-icon>delete</mat-icon></button>
+        </div>
+        <div  *ngIf="col === '$$liste'">
+          <button mat-icon-button (click)="getIdUser(element.id)" ><mat-icon>visibility</mat-icon></button>
+        </div>
+        <div *ngIf="element.isEdit">
+          <div  *ngIf="col === '$$edit'; else dataField" style="">
+            <button mat-icon-button (click)="element.isEdit = !element.isEdit" ><mat-icon (click)="onUpdate(element)">done_outline</mat-icon></button>
+          </div>
+          <form>
+          <ng-template #dataField>
+            <mat-form-field *ngIf="col !== '$$supp' && col !=='$$liste' && col !== 'photo'  && col !== 'profile'" >
+              <mat-label>{{col}}</mat-label>
+              <label>
+                <input matInput [type]="'dataSchema[col]'" value="{{element[col]}}">
+              </label>
+            </mat-form-field>
+            <mat-form-field appearance="fill" *ngIf="col !== '$$supp' && col !=='$$liste' && col === 'photo'">
+              <mat-label>Basic fill input</mat-label>
+              <ngx-mat-file-input placeholder="Basic fill placeholder" ></ngx-mat-file-input>
+            </mat-form-field>
+          </ng-template>
+          </form>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div class="example-container mat-elevation-z8">
+        <span  fxLayout="row" fxLayoutAlign="center center">
+         <button mat-icon-button [disabled]="!disableBtnP" (click)="preview()">
+        <mat-icon >fast_rewind</mat-icon>
+      </button>
+       <button mat-icon-button class="divmine" [disabled]="disableBtnN" (click)="next()">
+        <mat-icon >fast_forward</mat-icon>
+      </button>
+    </span>
+  </div>
+</div>
+<div class="seeDetails mat-elevation-z8 divdown" *ngIf="showdiv">
+<app-item-utilisateur-details [IdUser]="userId">
+</app-item-utilisateur-details>
+</div>
+

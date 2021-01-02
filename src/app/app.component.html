@@ -1,0 +1,4 @@
+<div>
+  <app-nav-bar *ngIf="etatConnection === 'true'"></app-nav-bar>
+</div>
+<router-outlet *ngIf="etatConnection === 'false'"></router-outlet>

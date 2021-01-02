@@ -1,0 +1,20 @@
+.adminDiv{
+  width: 80%;
+  height: auto;
+  margin: 3% auto;
+  background: white;
+}
+.matCardeDiv{
+  width: 100%;
+  height: auto;
+}
+.aroundAdmin{
+  border:2px solid #000000;
+  border-radius: 50%;
+  width: 7vw;
+  font-weight: bold;
+  text-align: center;
+}
+.divCenter{
+  margin: 0 auto;
+}

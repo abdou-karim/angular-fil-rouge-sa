@@ -1,0 +1,43 @@
+<div class="addRef">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"><img src="assets/img/sonatel.png" width="100" alt="Sonatel Academi" fxFlex="80%">
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Libelle</label>
+        <mat-form-field>
+          <input type="text" matInput value="Développer le back-end d’une application web">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Descriptif</label>
+        <mat-form-field>
+          <textarea matInput value="Donner le Descriptif"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Competence</label>
+        <div class="competences">
+          <div class="aroundAdmin">
+            Créer une base de données
+            <button mat-icon-button><mat-icon>clear</mat-icon></button>
+          </div>
+          <div class="aroundAdmin">
+            Développer les composants d’accès aux données
+            <button mat-icon-button><mat-icon>clear</mat-icon></button>
+          </div>
+        </div>
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label></label>
+        <button mat-raised-button color="primary">Soumettre</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

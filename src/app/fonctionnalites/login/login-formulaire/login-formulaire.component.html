@@ -1,0 +1,50 @@
+<div class="mydiv" >
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"><img  src="assets/img/sonatel.png" width="50px" alt="Sonatel Academi" fxFlex="80%">
+      </div>
+    </mat-card-header>
+    <mat-card-content >
+      <form [formGroup]="loginForm" (ngSubmit)="onSummit()">
+        <div>
+          <mat-form-field>
+            <label>
+              <input type="text" matInput placeholder="Username" formControlName="username" [ngClass]="{'is-valid': submitted && f.username.errors}">
+              <div *ngIf="submitted && f.username.errors" fxFlex="60%" style="color: red; font-weight: bold">
+
+                  <div *ngIf="f.username.errors.required">
+                      Username est obligatoire *
+                  </div>
+                <div *ngIf="f.username.errors.pattern">
+                      Debuter par une lettre Majiscule *
+                  </div>
+              </div>
+            </label>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <label>
+              <input  type="password" matInput placeholder="Password" formControlName="password" [ngClass]="{'is_valid': submitted && f.password.errors}">
+              <div *ngIf="submitted && f.password.errors" fxFlex="60%" style="color: red; font-weight: bold">
+
+                  <div *ngIf="f.password.errors.required">
+                    Password est obligatoire *
+                  </div>
+                <div *ngIf="f.password.errors.pattern">
+                    Password au moins 8 carecteres *
+                  </div>
+              </div>
+            </label>
+          </mat-form-field>
+
+        </div>
+        <div class="button" fxLayout="row" fxLayoutAlign="space-around center">
+          <button mat-button style="width: 50%; font-weight: bold; font-size: 20px">Login</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+

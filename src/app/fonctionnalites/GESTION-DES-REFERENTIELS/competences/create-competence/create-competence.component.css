@@ -1,0 +1,19 @@
+.divCenter{
+  width: 70%;
+  height: auto;
+  margin: 2% auto;
+  background: white;
+}
+.aroundAdmin{
+  border:2px solid #000000;
+  border-radius: 50%;
+  width: 5%;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+}
+.formCenter{
+  width: 90%;
+  height: 80%;
+  margin: 0 auto;
+}

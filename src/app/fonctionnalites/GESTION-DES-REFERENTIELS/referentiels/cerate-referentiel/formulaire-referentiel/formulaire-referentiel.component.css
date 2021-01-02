@@ -1,0 +1,28 @@
+label{
+  font-weight: bold;
+  font-size: 15px;
+  width: 15%;
+  height: 10%;
+  margin: 20px;
+}
+mat-form-field{
+  width: 50%;
+}
+.competences{
+  width: 50%;
+  height: auto;
+ border:2px solid #ccc ;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+.aroundAdmin{
+  border:2px solid #000000;
+  border-radius: 30%;
+  width: auto;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  margin: 5px auto;
+  height: auto;
+
+}

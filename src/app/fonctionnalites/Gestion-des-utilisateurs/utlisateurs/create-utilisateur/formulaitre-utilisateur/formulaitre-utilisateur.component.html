@@ -1,0 +1,106 @@
+<div class="addUser">
+  <form [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"><img src="assets/img/sonatel.png" width="100" alt="Sonatel Academi" fxFlex="80%">
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Username</label>
+        <mat-form-field>
+          <input type="text" matInput formControlName="username" [ngClass]="{'is-valid': submitted && f.username.errors}">
+          <div *ngIf="submitted && f.username.errors"  style="color: red; font-weight: bold">
+
+            <div *ngIf="f.username.errors.required">
+              Username est obligatoire *
+            </div>
+            <div *ngIf="f.username.errors.pattern">
+              Debuter par une lettre Majiscule *
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Lastname</label>
+        <mat-form-field>
+          <input type="text" matInput formControlName="lastname" [ngClass]="{'is-valid': submitted && f.lastname.errors}">
+          <div *ngIf="submitted && f.lastname.errors"  style="color: red; font-weight: bold">
+
+            <div *ngIf="f.lastname.errors.required">
+              Lastname est obligatoire *
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Firstname</label>
+        <mat-form-field>
+          <input type="text" matInput formControlName="fisrtname" [ngClass]="{'is-valid': submitted && f.fisrtname.errors}">
+          <div *ngIf="submitted && f.fisrtname.errors"  style="color: red; font-weight: bold">
+
+            <div *ngIf="f.fisrtname.errors.required">
+              Firstname est obligatoire *
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Email</label>
+        <mat-form-field>
+          <input type="text" matInput formControlName="email" [ngClass]="{'is-valid': submitted && f.email.errors}">
+          <div *ngIf="submitted && f.email.errors"  style="color: red; font-weight: bold">
+
+            <div *ngIf="f.email.errors.required">
+              Email est obligatoire *
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label>Profile</label>
+        <mat-form-field>
+          <mat-label>Profile</mat-label>
+          <mat-select formControlName="profils" [ngClass]="{'is-valid': submitted && f.profils.errors}">
+            <mat-option value="api/admin/profils/{{prof.id}}" *ngFor="let prof of profils">{{prof.libelle}}</mat-option>
+          </mat-select>
+          <div *ngIf="submitted && f.profils.errors"  style="color: #ff0000; font-weight: bold">
+
+            <div *ngIf="f.profils.errors.required">
+              Profile est obligatoire *
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <label></label>
+        <button mat-raised-button color="primary">Soumettre</button>
+        <label></label>
+        <button mat-raised-button type="reset" color="accent" (click)="onReset()" *ngIf="submitted">Reset</button>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+  <div class="avatar">
+      <div *ngIf="!previewUrl">
+        <img src="assets/img/imagesC.jpeg" height="350" alt="Chosir Avatar">
+      </div>
+    <div class="image-preview" *ngIf="previewUrl">
+      <img [src]="previewUrl" height="350" />
+    </div>
+
+    <div>
+      <label></label>
+      <input type="file"  style="display: none" #inputupload (change)="onFileSelected($event)" accept="image/*" formControlName="photo" [ngClass]="{'is-valid': submitted && f.photo.errors}">
+      <button mat-raised-button type="button" (click)="inputupload.click()" color="warn" style="width: 100%; margin: 0 auto"> Upload Avatar</button>
+      <div *ngIf="submitted && f.photo.errors"  style="color: red; font-weight: bold">
+
+        <div *ngIf="f.photo.errors.required">
+          Avatar est obligatoire *
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>

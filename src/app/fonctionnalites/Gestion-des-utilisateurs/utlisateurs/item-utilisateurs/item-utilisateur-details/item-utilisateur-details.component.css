@@ -1,0 +1,24 @@
+mat-table{
+  width: 100%;
+  flex-wrap: wrap;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 3px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}

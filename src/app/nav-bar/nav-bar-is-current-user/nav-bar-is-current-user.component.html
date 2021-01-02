@@ -1,0 +1,77 @@
+<div>
+<mat-toolbar fxLayout="row" >
+  <span><img src="assets/img/sonatel.png" width="50px" alt="sonatel academy"></span>
+  <div class="maselect">
+    <p>
+      <mat-form-field>
+        <mat-label>PROMO</mat-label>
+        <mat-select >
+          <mat-option value="Homme">SA COHORTE 1</mat-option>
+          <mat-option value="Homme">SA COHORTE 2</mat-option>
+          <mat-option value="Homme">SA COHORTE 3</mat-option>
+          <mat-option value="Femme">SA COHORTE 4</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+  </div>
+  <button mat-button class="addSid" *ngFor="let item of menuItems" (click)="sidenav.toggle(dropmyMenu === true)"
+          [fxShow]="item.showOnDesktop"
+          [fxShow.xs]="item.showOnMobile"
+          [fxShow.sm]="item.showOnTablet"
+          [fxShow.md]="item.showOnMedium"
+          [fxShow.lg]="item.showOnLarge">
+    <span (click)="getDrop(item.id)">
+      <a  [routerLink]="item.path">
+         <mat-icon class="mr">{{item.icon}}</mat-icon>
+        {{item.label}}
+      </a>
+
+    </span>
+  </button>
+  <ng-container>
+    <button mat-icon-button [matMenuTriggerFor]="dropMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #dropMenu="matMenu">
+      <ng-container *ngFor="let item of menuItems">
+        <div [fxShow]="!item.showOnDesktop" (click)="sidenav.toggle(dropmyMenu === true)"
+             [fxShow.sm]="!item.showOnTablet"
+             [fxShow.xs]="!item.showOnMobile"
+             [fxShow.md]="!item.showOnMedium"
+             [fxShow.lg]="!item.showOnLarge">
+
+          <button mat-menu-item (click)="getDrop(item.id)"  [routerLink]="item.path">
+            <mat-icon class="mr">{{item.icon}}</mat-icon>
+            {{item.label}}
+          </button>
+          <mat-divider></mat-divider>
+        </div>
+      </ng-container>
+    </mat-menu>
+  </ng-container>
+  <div>
+  </div>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="push">
+    <mat-list>
+      <div *ngFor="let it of menuDropdown">
+        <mat-list-item>
+          <button mat-button [routerLink]="it.path">
+            <mat-icon>{{it.icon}}</mat-icon>
+            {{it.label}}
+          </button>
+        </mat-list-item>
+      </div>
+
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content >
+    <div class="mycontent">
+    <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+</div>
+
+

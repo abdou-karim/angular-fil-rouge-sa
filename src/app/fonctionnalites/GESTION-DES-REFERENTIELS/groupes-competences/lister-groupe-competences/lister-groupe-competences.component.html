@@ -1,0 +1,12 @@
+<div class="adminDiv">
+  <div fxLayout="row"  fxFlexAlign="center center">
+    <div  class="aroundAdmin" >admin</div>
+    <div class="divCenter mat-display-1">Liste des groupes de compétences</div>
+    <div>
+      <button mat-icon-button routerLink="/add-groupe-competence"><mat-icon>person_add_alt_1</mat-icon></button></div>
+  </div>
+  <div class="matCardeDiv">
+    <app-items-groupe-competences *ngFor="let itemGroupe of groupeCompetence" fxFlex></app-items-groupe-competences>
+  </div>
+</div>
+

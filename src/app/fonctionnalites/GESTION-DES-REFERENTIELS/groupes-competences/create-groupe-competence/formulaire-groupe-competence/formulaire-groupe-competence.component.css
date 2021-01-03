@@ -26,3 +26,6 @@ mat-form-field{
   height: auto;
 
 }
+.example-chip-list {
+  width: 100%;
+}

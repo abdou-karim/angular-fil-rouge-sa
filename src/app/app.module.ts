@@ -37,13 +37,10 @@ import {
 } from './fonctionnalites';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {PasswordModule} from 'primeng/password';
-import {ButtonModule} from 'primeng/button';
-import {RippleModule} from 'primeng/ripple';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {ToastModule} from 'primeng/toast';
-import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {
+  IgxChipsModule,
+  IgxIconModule
+} from 'igniteui-angular';
 
 
 
@@ -84,23 +81,15 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
     ItemUtilisateurDetailsComponent,
     ItemProfileUsersComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    PasswordModule,
-    ButtonModule,
-    RippleModule,
-    FormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    ConfirmPopupModule,
-    ToastModule,
-    ButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

@@ -17,6 +17,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 const materialComponent =
@@ -24,7 +26,7 @@ const materialComponent =
     MatToolbarModule, MatIconModule, MatSidenavModule, FlexLayoutModule, MatMenuModule, MatButtonModule,
     MatDividerModule,
     MatSelectModule, MatCardModule, MatInputModule, MatGridListModule, MatListModule, NgxMatFileInputModule,
-    MatButtonToggleModule, MatTableModule, MatSortModule, MatPaginatorModule
+    MatButtonToggleModule, MatTableModule, MatSortModule, MatPaginatorModule, MatChipsModule, MatAutocompleteModule
   ];
 @NgModule({
   imports: [materialComponent],

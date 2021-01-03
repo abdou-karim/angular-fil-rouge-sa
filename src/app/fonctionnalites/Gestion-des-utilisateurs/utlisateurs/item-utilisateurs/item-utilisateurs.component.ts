@@ -75,6 +75,7 @@ export class ItemUtilisateursComponent implements OnInit {
         this.users = data['hydra:member'];
         // @ts-ignore
         this.totalItems = data['hydra:totalItems'];
+        console.log(this.totalItems);
         // @ts-ignore
         this.UserPerPage = data['hydra:member'].length;
         console.log(this.users);
@@ -85,7 +86,9 @@ export class ItemUtilisateursComponent implements OnInit {
   // tslint:disable-next-line:typedef
   next() {
     this.num = this.num + 1;
+    console.log('num ' + this.num);
     this.nombrePage = this.totalItems / this.UserPerPage;
+    console.log('nbrp ' + this.nombrePage);
     if (this.num >= this.nombrePage - 1) {
       this.disableBtnN = true;
       this.num = this.nombrePage - 1;

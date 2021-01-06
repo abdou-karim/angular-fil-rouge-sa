@@ -89,9 +89,9 @@ export class ItemUtilisateursComponent implements OnInit {
     console.log('num ' + this.num);
     this.nombrePage = this.totalItems / this.UserPerPage;
     console.log('nbrp ' + this.nombrePage);
-    if (this.num >= this.nombrePage - 1) {
+    if (this.num >= this.nombrePage) {
       this.disableBtnN = true;
-      this.num = this.nombrePage - 1;
+      this.num = this.nombrePage;
     }
     this.disableBtnP = true;
     return this.userService.getAllUser(`${this.num}`).subscribe(data => {
@@ -107,7 +107,7 @@ export class ItemUtilisateursComponent implements OnInit {
       this.num = 1;
       this.disableBtnP = false;
     }
-    if (this.num < this.nombrePage - 1) {
+    if (this.num < this.nombrePage) {
       this.disableBtnN = false;
     }
     // tslint:disable-next-line:triple-equals

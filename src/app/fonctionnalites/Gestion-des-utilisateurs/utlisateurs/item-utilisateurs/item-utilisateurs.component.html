@@ -16,7 +16,7 @@
             {{element[col]}}
           </span>
           <span *ngIf="col === 'photo'" #spanHeader>
-             <img  src="{{'data:image/png;base64,' + element[col]}}" width="150px" alt="{{element.username}}">
+             <img  src="{{'data:image/jpeg;base64,' + element[col]}}" width="150px" alt="{{element.username}}">
           </span>
           <span #spanHeader *ngIf=" col == 'profile'">
               {{element.profils.libelle}}

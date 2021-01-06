@@ -1,4 +1,5 @@
-<div class="addRef">
+<div class="addRef" fxLayout="row">
+  <form [formGroup]="addGroupeCompetenceForm" (ngSubmit)="onAddCompetence()" style="display:flex; width:100%">
   <mat-card>
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"><img src="assets/img/sonatel.png" width="100" alt="Sonatel Academi" fxFlex="80%">
@@ -8,14 +9,16 @@
       <div fxLayout="row" fxLayoutAlign="start center" >
         <label>Libelle</label>
         <mat-form-field>
-          <input type="text" matInput value="Développer le back-end d’une application web">
+          <input type="text" matInput value="Développer le back-end d’une application web" formControlName="libelle">
         </mat-form-field>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="start center" >
         <label>Descriptif</label>
         <mat-form-field>
-          <textarea matInput value="Donner le Descriptif"></textarea>
+          <label>
+            <textarea matInput value="Donner le Descriptif" formControlName="description"></textarea>
+          </label>
         </mat-form-field>
       </div>
 
@@ -23,28 +26,29 @@
         <label>Competence</label>
         <div class="competences">
           <mat-form-field class="example-chip-list">
-            <mat-label>Favorite Fruits</mat-label>
-            <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-label>Ajouter Competence</mat-label>
+            <mat-chip-list #chipList aria-label="Fruit selection" formControlName="competence">
               <mat-chip
-                *ngFor="let fruit of fruits"
+                *ngFor="let fruit of tabCompetence"
+                [formControl]="competenceCtrl"
                 [selectable]="selectable"
                 [removable]="removable"
                 (removed)="remove(fruit)">
                 {{fruit}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
               </mat-chip>
-              <input
-                placeholder="New fruit..."
-                #fruitInput
-                [formControl]="fruitCtrl"
-                [matAutocomplete]="auto"
-                [matChipInputFor]="chipList"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                (matChipInputTokenEnd)="add($event)">
+              <label>
+                <input
+                  #fruitInput
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="add($event)">
+              </label>
             </mat-chip-list>
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-              <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-                {{fruit}}
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" >
+              <mat-option *ngFor="let compet of competences" [value]="'/api/admin/competences/' + compet.id">
+                {{compet.libelle}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
@@ -59,4 +63,50 @@
       </div>
     </mat-card-content>
   </mat-card>
+    <!--/////////////////////////////////////tag/////////////////////////////////////-->
+  <div class="tagP">
+        <div fxLayout="row"><h2 style="font-weight: bold;margin: 0 auto;">Liste Tags</h2></div>
+    <table mat-table [dataSource]="tagsModele" class="mat-elevation-z8">
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell  *matCellDef="let row" >
+            <mat-checkbox (click)="$event.stopPropagation()" [formControl]="tags"
+                          [value]="'api/admin/tags/' + row.id"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)" #valuchecbox
+                          (click)="getChecboxValu(valuchecbox.value)">
+            </mat-checkbox>
+
+
+        </td>
+      </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> Libelle </th>
+        <td mat-cell *matCellDef="let element"> {{element.libelle}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Descriptif </th>
+        <td mat-cell *matCellDef="let element"> {{element.descriptif}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="selection.toggle(row)">
+      </tr>
+    </table>
+
+  </div>
+  </form>
 </div>

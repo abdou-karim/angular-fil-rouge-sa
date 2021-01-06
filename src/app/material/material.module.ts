@@ -19,12 +19,15 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 
 const materialComponent =
   [
     MatToolbarModule, MatIconModule, MatSidenavModule, FlexLayoutModule, MatMenuModule, MatButtonModule,
-    MatDividerModule,
+    MatDividerModule, MatCheckboxModule, MatExpansionModule,
     MatSelectModule, MatCardModule, MatInputModule, MatGridListModule, MatListModule, NgxMatFileInputModule,
     MatButtonToggleModule, MatTableModule, MatSortModule, MatPaginatorModule, MatChipsModule, MatAutocompleteModule
   ];

@@ -1,8 +1,7 @@
 .example-card {
-  width: 15vw;
+  width: auto;
   margin: 0;
   padding: 0;
-  border:2px solid #000000 ;
 
 }
 .header{
@@ -12,16 +11,35 @@
 }
 .presentation{
   border: 2px solid #000000;
-  height: 10vh;
+  height: auto;
   text-align: center;
 }
 .secondContainer{
   border: 2px solid #000000;
-  height: 5vh;
+  width: auto;
+  height: auto;
   text-align: center;
+  font-weight: bold;
 }
 .cardeRef{
-  width: 90%;
+  width: auto;
   height: auto;
-  margin: 5vh auto;
+  margin: 5vh 3px auto;
 }
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-title{
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+}
+

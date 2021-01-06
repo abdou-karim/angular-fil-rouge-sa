@@ -1,10 +1,16 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Observable, Subscription} from 'rxjs';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material/chips';
+import {CompetencesService, TagsService} from '../../../../../_services';
+import {Competences, Tags} from '../../../../../modeles';
+import {GroupeCompetence} from '../../../../../modeles';
+import {MatTableDataSource} from '@angular/material/table';
+import {SelectionModel} from '@angular/cdk/collections';
+import {Tag} from 'primeng/tag';
 
 
 @Component({
@@ -12,24 +18,87 @@ import {MatChipInputEvent} from '@angular/material/chips';
   templateUrl: './formulaire-groupe-competence.component.html',
   styleUrls: ['./formulaire-groupe-competence.component.css']
 })
-export class FormulaireGroupeCompetenceComponent {
+export class FormulaireGroupeCompetenceComponent implements OnInit{
   visible = true;
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-
+  competenceCtrl = new FormControl();
+  // @ts-ignore
+  filteredCompetences: Observable<Competences[]>;
+  tabCompetence: string[] = [];
+  tabCompetenceValue: string[] = [];
+  tabTagValue: string[] = [];
+  allCompetence: string[] = [];
+  // @ts-ignore
+  idTags: number;
+  // @ts-ignore
+  competences: Competences[] ;
+  // @ts-ignore
+  tagsModele: Tags[];
+  // @ts-ignore
+  addGroupeCompetenceForm: FormGroup;
+  displayedColumns: string[] = ['select', 'position', 'name'];
+  dataSource: any;
+  selection = new SelectionModel<Tags>(true, []);
+   tags = new FormControl();
   // @ts-ignore
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
   // @ts-ignore
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
-  constructor() {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+  constructor(private competenceService: CompetencesService, private fb: FormBuilder, private tagService: TagsService) {
+    this.getCompetenceChips();
+    this.getTag();
+     }
+  ngOnInit(): void {
+    this.addGroupeCompetenceForm = this.fb.group({
+      libelle: ['', Validators.required],
+      description: ['', Validators.required],
+      competence: [[], Validators.required],
+      tags: [[]]
+    });
+    this.getComppetences();
+    this.competenceCtrlfc.setValue(this.tabCompetenceValue);
+  }
+  // tslint:disable-next-line:typedef
+  get competenceCtrlfc() {
+    return this.addGroupeCompetenceForm.controls.competence;
+  }
+  // tslint:disable-next-line:typedef
+  get tagsValue(){
+   return  this.addGroupeCompetenceForm.controls.tags;
+  }
+  // tslint:disable-next-line:typedef
+  getComppetences(){
+    return this.competenceService.getCompetences().subscribe(
+      data => {
+        // @ts-ignore
+        this.competences = data[`hydra:member`];
+        // @ts-ignore
+        data['hydra:member'].find(
+          (c: Competences) => {
+            this.allCompetence.push(c.libelle);
+          }
+        );
+      }
+    );
+  }
+  // tslint:disable-next-line:typedef
+  getTag(){
+    return this.tagService.getAllTag()
+      .subscribe(
+        data => {
+            this.tagsModele = data['hydra:member'];
+            this.dataSource = new MatTableDataSource<Tags>(this.tagsModele);
+        }
+      );
+  }
+  // tslint:disable-next-line:typedef
+  getCompetenceChips(){
+    // @ts-ignore
+    this.filteredCompetences = this.competenceCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allCompetence.slice()));
   }
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -37,7 +106,8 @@ export class FormulaireGroupeCompetenceComponent {
 
     // Add our fruit
     if ((value || '').trim()) {
-      this.fruits.push(value.trim());
+      this.tabCompetence.push(value.trim());
+      this.tabCompetenceValue.push(value.trim());
     }
 
     // Reset the input value
@@ -45,23 +115,62 @@ export class FormulaireGroupeCompetenceComponent {
       input.value = '';
     }
 
-    this.fruitCtrl.setValue(null);
+    this.competenceCtrl.setValue(null);
+    this.competenceCtrlfc.setValue(this.tabCompetence);
   }
   remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+    const index = this.tabCompetence.indexOf(fruit);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.tabCompetence.splice(index, 1);
     }
   }
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
+    this.tabCompetence.push(event.option.viewValue);
+    this.tabCompetenceValue.push(event.option.value);
     this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    this.competenceCtrl.setValue(null);
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.allCompetence.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+  }
+  // tslint:disable-next-line:typedef
+  onAddCompetence(): Subscription{
+    return this.competenceService.addGroupeCompetence(this.addGroupeCompetenceForm.value)
+      .subscribe(
+        data => {
+          this.addGroupeCompetenceForm.reset();
+          return data;
+        }
+      );
+  }
+  //////////////////////// tag ////////////////////
+  /** Whether the number of selected elements matches the total number of rows. */
+  // tslint:disable-next-line:typedef
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  // tslint:disable-next-line:typedef
+  masterToggle() {
+    // @ts-ignore
+    !this.isAllSelected() ? this.dataSource.data.forEach(row => this.selection.select(row)) : this.selection.clear();
+  }
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Tags): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    // @ts-ignore
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+  // tslint:disable-next-line:typedef
+  getChecboxValu(value: any){
+    this.tabTagValue.push(value);
+    this.tagsValue.setValue(this.tabTagValue);
   }
 }

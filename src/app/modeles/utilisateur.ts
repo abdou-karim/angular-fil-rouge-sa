@@ -11,7 +11,7 @@ export interface Utilisateur {
   profilSortie: {
     libelle: string
   };
-  groupes: [
+  groupe: [
     {
       nom: string;
       status: string;

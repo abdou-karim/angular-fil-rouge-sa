@@ -6,7 +6,16 @@
       <button mat-icon-button routerLink="/add-groupe-competence"><mat-icon>person_add_alt_1</mat-icon></button></div>
   </div>
   <div class="matCardeDiv">
-    <app-items-groupe-competences *ngFor="let itemGroupe of groupeCompetence" fxFlex></app-items-groupe-competences>
+    <app-items-groupe-competences
+      *ngFor="let itemGroupe of groupeCompetence"
+      [Description]="itemGroupe.description"
+      [competenceModele]="itemGroupe.competence"
+      (newItemEvent)="getvalue($event)" fxFlex="{{valueFlex}}"
+    [tagsModele]="itemGroupe.tags"
+    (getGrpCompetence)="getGrpCompetence($event)"
+    [IdGroupeCompetence]="itemGroupe.id">
+
+    </app-items-groupe-competences>
   </div>
 </div>
 

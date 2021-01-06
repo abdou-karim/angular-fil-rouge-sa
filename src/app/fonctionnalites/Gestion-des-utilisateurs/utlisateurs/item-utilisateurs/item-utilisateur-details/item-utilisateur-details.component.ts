@@ -15,7 +15,7 @@ export class ItemUtilisateurDetailsComponent implements OnInit {
   // @ts-ignore
   user: Utilisateur[] ;
   groupe: any;
-  displayedColumns: string[] = ['profile', 'profilSortie', 'genre', 'adresse', 'telephone', 'statut', 'groupes' ];
+  displayedColumns: string[] = ['profile', 'profilSortie', 'genre', 'adresse', 'telephone', 'statut', 'groupe' ];
   ngOnInit(): void {
     this.getUserId();
   }

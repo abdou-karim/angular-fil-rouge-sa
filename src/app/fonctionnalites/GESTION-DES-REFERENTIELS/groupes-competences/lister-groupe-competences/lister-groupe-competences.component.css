@@ -12,7 +12,7 @@
 .aroundAdmin{
   border:2px solid #000000;
   border-radius: 50%;
-  width: 5%;
+  width: auto;
   font-weight: bold;
   text-align: center;
   padding: 10px;

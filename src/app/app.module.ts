@@ -89,6 +89,8 @@ import {
         ReactiveFormsModule,
         HttpClientModule,
         FormsModule,
+      IgxChipsModule,
+      IgxIconModule
     ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

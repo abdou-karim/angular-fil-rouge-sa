@@ -1,13 +1,12 @@
 .listCompetence{
   width: auto;
-  height: auto;
   margin: 10px auto;
   display: flex;
   justify-content: center;
 }
 .comp{
   width: auto;
-  height: 37vh;
+  height: auto;
   border: 2px solid #000000;
 }
 .aroundAdmin{
@@ -23,14 +22,14 @@
   height: 5vh;
 }
 .niv1{
-  width: 28%;
-  height: 37vh;
+  width: auto;
+  height: auto;
   text-align: center;
   border: 2px solid #000000;
 }
 .niv2{
-  width: 28%;
-  height: 37vh;
+  width: auto;
+  height: auto;
   text-align: center;
   border: 2px solid #000000;
 }
@@ -45,4 +44,15 @@ li{
 .myheader{
   border: 2px solid #000000;
 }
+mat-form-field{
+  width:100%;
+  margin:3px;
+}
+.copeten {
+  margin: 12px;
+  display: block;
+  border: none;
+  font-weight:bold;
+}
+/*aniamtion text*/
 

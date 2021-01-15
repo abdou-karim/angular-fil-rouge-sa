@@ -1,8 +1,8 @@
 <div class="cardeRef">
   <mat-card class="example-card">
-    <div class="header" fxLayout="row">
+    <div class="header" fxLayout="row" [style]="'background:' + background">
     <span class="mat-display-1" fxFlex>
-       Libelle
+       {{libelle}}
     </span>
       <span>
       <button mat-icon-button><mat-icon>create</mat-icon></button>
@@ -13,19 +13,42 @@
     </div>
     <mat-card-content>
       <div class="presentation">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, consequatur?
+        {{presentation}}
       </div>
       <div class="secondContainer">
-        Groupe de competence
+        <mat-expansion-panel>
+          <mat-expansion-panel-header (click)="getValueFlex()">
+            <mat-panel-title>
+              Groupe de competence
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <mat-table [dataSource]="grpcompetenceModele" class="mat-elevation-z8">
+              <!-- Position Column -->
+              <ng-container matColumnDef="libelle">
+                <mat-header-cell *matHeaderCellDef> Libelle </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.libelle}} </mat-cell>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="descriptif">
+                <mat-header-cell *matHeaderCellDef> Descriptif </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
+        </mat-expansion-panel>
       </div>
       <div class="secondContainer">
         Programme
       </div>
       <div class="secondContainer">
-        Crictere d'evaluation
+        {{ Cricteredevaluation}}
       </div>
       <div class="secondContainer">
-        Crictere d'admission
+        {{Cricteredadmission}}
       </div>
     </mat-card-content>
   </mat-card>

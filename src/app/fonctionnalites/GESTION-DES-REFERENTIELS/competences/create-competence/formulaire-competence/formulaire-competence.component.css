@@ -25,11 +25,10 @@ mat-form-field{
   width: auto;
   height: auto;
   margin: 10px auto;
-  display: flex;
   justify-content: center;
 }
 .niv1{
-   width: 28%;
+   width: 30%;
    height: 30vh;
    text-align: center;
    border: 2px solid #000000;
@@ -39,4 +38,14 @@ mat-form-field{
   height: 30vh;
   text-align: center;
   border: 2px solid #000000;
+}
+.matNiv{
+  width:60%;
+}
+.grpAct{
+  width:50%;
+  margin-right:5%;
+}
+.crictEv{
+  width:50%;
 }

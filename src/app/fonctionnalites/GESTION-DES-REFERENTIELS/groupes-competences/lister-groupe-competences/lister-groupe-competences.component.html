@@ -8,6 +8,7 @@
   <div class="matCardeDiv">
     <app-items-groupe-competences
       *ngFor="let itemGroupe of groupeCompetence"
+      [libelle]="itemGroupe.libelle"
       [Description]="itemGroupe.description"
       [competenceModele]="itemGroupe.competence"
       (newItemEvent)="getvalue($event)" fxFlex="{{valueFlex}}"

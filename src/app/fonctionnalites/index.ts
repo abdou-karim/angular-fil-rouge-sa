@@ -24,6 +24,8 @@ export * from './Gestion-des-utilisateurs/profile-de-sortie/profile-de-sortie.co
 export * from './Gestion-des-utilisateurs/profile-de-sortie/items-profile-de-sortie/items-profile-de-sortie.component';
 export * from './Gestion-des-utilisateurs/utlisateurs/item-utilisateurs/item-utilisateur-details/item-utilisateur-details.component';
 export * from './Gestion-des-utilisateurs/profiles/lister-profiles/items-profile/item-profile-users/item-profile-users.component';
+export * from './GESTION-DES-REFERENTIELS/groupes-competences/lister-groupe-competences/items-groupe-competences/viewer-programme/viewer-programme.component';
+
 
 
 

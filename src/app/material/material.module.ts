@@ -21,13 +21,14 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
 const materialComponent =
   [
     MatToolbarModule, MatIconModule, MatSidenavModule, FlexLayoutModule, MatMenuModule, MatButtonModule,
-    MatDividerModule, MatCheckboxModule, MatExpansionModule,
+    MatDividerModule, MatCheckboxModule, MatExpansionModule, MatTabsModule,
     MatSelectModule, MatCardModule, MatInputModule, MatGridListModule, MatListModule, NgxMatFileInputModule,
     MatButtonToggleModule, MatTableModule, MatSortModule, MatPaginatorModule, MatChipsModule, MatAutocompleteModule
   ];

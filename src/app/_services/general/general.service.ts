@@ -30,7 +30,7 @@ export class GeneralService {
   delete(url: string, id: number) {
     return this.http.delete(`${url}/${id}`);
   }
-  getModelById(url: string, id: string, url2?: string): Observable<any>{
+  getModelById(url: string, id: number, url2?: string): Observable<any>{
     if (url2){
       this.myUrl = `${url}/${id}/${url2}`;
     }else {

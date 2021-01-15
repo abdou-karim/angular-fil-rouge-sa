@@ -17,6 +17,8 @@ export class ItemsGroupeCompetencesComponent implements OnInit {
   // @ts-ignore
   @Input() Description: string;
   // @ts-ignore
+  @Input() libelle: string;
+  // @ts-ignore
   @Input() IdGroupeCompetence: number;
   @Output() newItemEvent = new EventEmitter<number>();
   @Output() getGrpCompetence = new EventEmitter<boolean>();
@@ -27,7 +29,8 @@ export class ItemsGroupeCompetencesComponent implements OnInit {
   // @ts-ignore
   valueFlex: number;
   displayedColumns: string[] = ['libelle', 'descriptif'];
-
+    require: any;
+   FileSaver = require('file-saver');
   constructor(private competenceService: CompetencesService) {
   }
 
@@ -59,5 +62,11 @@ export class ItemsGroupeCompetencesComponent implements OnInit {
           }
         );
     }
+  }
+  // tslint:disable-next-line:typedef
+  downloadPdf() {
+    const pdfUrl = './assets/sample.pdf';
+    const pdfName = 'your_pdf_file';
+    this.FileSaver.saveAs(pdfUrl, pdfName);
   }
 }

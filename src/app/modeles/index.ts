@@ -5,4 +5,5 @@ export * from './profile';
 export * from './competences';
 export * from './groupeCompetence';
 export * from './tags';
+export * from './niveaux';
 

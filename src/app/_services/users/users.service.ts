@@ -25,7 +25,7 @@ export class UsersService {
   }
   // tslint:disable-next-line:typedef
   getUserId(id: number){
-    return this.generalService.getModelById(`${this.API_URL}/admin/users`, `${id}`);
+    return this.generalService.getModelById(`${this.API_URL}/admin/users`, Number(`${id}`));
   }
   // tslint:disable-next-line:typedef
   delete(id: number) {

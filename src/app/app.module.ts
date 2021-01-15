@@ -33,7 +33,7 @@ import {
   CreateCompetenceComponent,
   ItemsCompetencesComponent,
   ListerCompetencesComponent, ItemsProfileDeSortieComponent,
-  ProfileDeSortieComponent, ItemProfileUsersComponent, ItemUtilisateurDetailsComponent
+  ProfileDeSortieComponent, ItemProfileUsersComponent, ItemUtilisateurDetailsComponent, ViewerProgrammeComponent
 } from './fonctionnalites';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -41,6 +41,7 @@ import {
   IgxChipsModule,
   IgxIconModule
 } from 'igniteui-angular';
+
 
 
 
@@ -80,6 +81,7 @@ import {
     ItemsProfileDeSortieComponent,
     ItemUtilisateurDetailsComponent,
     ItemProfileUsersComponent,
+    ViewerProgrammeComponent
   ],
     imports: [
         BrowserModule,

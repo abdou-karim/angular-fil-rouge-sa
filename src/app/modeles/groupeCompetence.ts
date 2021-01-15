@@ -33,4 +33,18 @@ export interface GroupeCompetence{
       libelle: string;
     };
   }];
+  referentiels: [{
+    id: number;
+    libelle: string;
+    presentation: string;
+    crictereAdmission: string;
+    crictereEvaluation: string;
+    groupeCompetences: {
+      id: number;
+      libelle: string;
+      description: string;
+    };
+    promo: [{}];
+    programme: any;
+  }];
 }

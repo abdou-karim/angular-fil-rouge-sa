@@ -92,7 +92,8 @@ import {
         HttpClientModule,
         FormsModule,
       IgxChipsModule,
-      IgxIconModule
+      IgxIconModule,
+
     ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

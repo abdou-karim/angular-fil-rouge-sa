@@ -1,3 +1,7 @@
+<mat-horizontal-stepper #stepper>
+  <mat-step [stepControl]="firstFormGroup"  errorMessage="Tous les champs sont obligatoires *.">
+    <form [formGroup]="firstFormGroup" >
+      <ng-template matStepLabel>Creer Une Promotion</ng-template>
 <mat-card class="example-card">
   <mat-card-header fxLayout="row" fxLayoutAlign="space-around center">
     <mat-card-title><h2>Créer une promotion</h2></mat-card-title>
@@ -9,9 +13,9 @@
         <span class="vertical-line"></span>
         <mat-form-field>
           <mat-label>CHOIX DU LANGUAGE </mat-label>
-          <mat-select >
-            <mat-option value="Homme">FRANCAIS</mat-option>
-            <mat-option value="Homme">ANGLAIS</mat-option>
+          <mat-select formControlName="langue">
+            <mat-option value="Francais">FRANCAIS</mat-option>
+            <mat-option value="Anglais">ANGLAIS</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -21,7 +25,7 @@
         <span class="vertical-line"></span>
         <mat-form-field>
           <label>
-            <input type="text" matInput>
+            <input type="text" formControlName="titre" matInput>
           </label>
         </mat-form-field>
       </div>
@@ -31,7 +35,7 @@
         <span class="vertical-line"></span>
         <mat-form-field>
           <label>
-<textarea matInput>
+<textarea matInput formControlName="description">
 
 </textarea>
           </label>
@@ -43,17 +47,7 @@
         <span class="vertical-line"></span>
         <mat-form-field>
           <label>
-            <input type="text" matInput>
-          </label>
-        </mat-form-field>
-      </div>
-
-      <div fxLayout="row" fxLayoutAlign="start center">
-        <label>Reference Agate</label>
-        <span class="vertical-line"></span>
-        <mat-form-field>
-          <label>
-            <input type="text" matInput>
+            <input type="text" formControlName="lieu" matInput>
           </label>
         </mat-form-field>
       </div>
@@ -63,9 +57,9 @@
         <span class="vertical-line"></span>
         <mat-form-field>
           <mat-label>CHOIX DE LA FABRIQUE </mat-label>
-          <mat-select >
-            <mat-option value="Homme">SONATEL ACADEMY</mat-option>
-            <mat-option value="Homme">SIMPLON</mat-option>
+          <mat-select formControlName="fabrique">
+            <mat-option value="Sonatel Academy">SONATEL ACADEMY</mat-option>
+            <mat-option value="Simplon Online">SIMPLON</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -76,7 +70,7 @@
         <span class="vertical-line"></span>
         <mat-form-field>
           <label>
-            <input type="date" matInput>
+            <input type="date" formControlName="dateDebut" matInput>
           </label>
         </mat-form-field>
 
@@ -84,7 +78,15 @@
         <span class="vertical-line"></span>
         <mat-form-field>
           <label>
-            <input type="date" matInput>
+            <input type="date" formControlName="dateFinReelle" matInput>
+          </label>
+        </mat-form-field>
+
+        <label>Date de Fin Provisoire*</label>
+        <span class="vertical-line"></span>
+        <mat-form-field>
+          <label>
+            <input type="date" formControlName="dateFinProvisoire" matInput>
           </label>
         </mat-form-field>
       </div>
@@ -95,41 +97,11 @@
       <div class="ref">
         <div class="refin">
           <mat-grid-list cols="3" rowHeight="2:1">
-            <mat-grid-tile >
-              <mat-button-toggle value="bold">DEVELOPPEUR WEB ET MOBILE</mat-button-toggle>
-            </mat-grid-tile>
-            <mat-grid-tile>
-
-              <mat-button-toggle value="bold">REALISER UN SITE INTERNET
-                <br>A PARTIR DE WORDPRESS</mat-button-toggle>
-            </mat-grid-tile>
-            <mat-grid-tile>
-
-              <mat-button-toggle value="bold">CODER ET DEPLOYER UNE <br> APPLICATION WEB SIMPLE</mat-button-toggle>
-            </mat-grid-tile>
-            <mat-grid-tile fxHide.sm fxHide.md>
-
-              <mat-button-toggle value="bold">REFRENT E DIGITAL</mat-button-toggle>
-            </mat-grid-tile>
-            <mat-grid-tile fxHide.sm fxHide.md>
-
-              <mat-button-toggle value="bold">COMPETENCE NUMERIQUES <br> FONDAMENTALES</mat-button-toggle>
-            </mat-grid-tile>
-            <mat-grid-tile fxHide.sm fxHide.md>
-
-              <mat-button-toggle value="bold">TECHNICIEN D'ASSISTANCE <br> INFORMATIQUE</mat-button-toggle>
-            </mat-grid-tile>
-            <mat-grid-tile fxHide.sm fxHide.md >
-
-              <mat-button-toggle  value="bold"> OBJETS CONNECTES</mat-button-toggle>
-            </mat-grid-tile>
-            <mat-grid-tile fxHide.sm fxHide.md>
-
-              <mat-button-toggle value="bold">DEVELOPPEUR DATA</mat-button-toggle>
-            </mat-grid-tile>
-            <mat-grid-tile fxHide.sm fxHide.md>
-
-              <mat-button-toggle value="bold">DEVELOPPEUR DATA ET <br>INTELLIGENCE ARTIFICIELLE</mat-button-toggle>
+            <mat-grid-tile *ngFor="let ref of referentiel">
+              <mat-button-toggle  (change)="tes(ref,$event.source,ref.id)">
+                {{ref.libelle}}
+                <input type="hidden" formControlName="referentiels" >
+              </mat-button-toggle>
             </mat-grid-tile>
           </mat-grid-list>
         </div>
@@ -140,7 +112,7 @@
 
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <label></label>
-        <div class="imgpromo" appUpload (onFileDropped)="uploadFile($event)" >
+        <div class="imgpromo" appUpload (onFileDropped)="uploadFile($event)">
           <div  fxLayoutAlign="space-around center">
             <span style="text-align: center">faite glisser une image ou</span>
             <button type="button" mat-button color="warn"  (click)="filInput.click()">
@@ -148,67 +120,87 @@
               Upload
             </button>
             <br/>
-            <input type="file" #filInput name="fileUpload" multiple="multiple" style="display:none;"/>
+            <input type="file" #filInput name="fileUpload" formControlName="avatar" appUpload (onChnageFile)="uploadFile($event)" multiple="multiple" style="display:none;"/>
           </div>
         </div>
       </div>
   </mat-card-content>
 </mat-card>
-<mat-card class="example-card" fxLayout="row" fxLayoutAlign="center center">
-  <div class="addApp">
-    <div class="adminDiv">
-      <div fxLayout="row"  fxFlexAlign="center center">
-        <div class="divCenter mat-display-1">Ajouter des apprenants</div>
+      <div>
+        <button mat-raised-button matStepperNext color="primary">Next</button>
       </div>
-      <div class="matCardeDiv">
-        <div>
-          <label >Adresse email *</label>
-          <mat-form-field class="ema">
-            <label>
-              <input type="email" matInput value="nom@domaine.com">
-            </label>
-          </mat-form-field>
-        </div>
-        <div class="myCadre" fxLayout="row" fxLayoutAlign="start start">
-          <span class="aroundAdminnew">
-            example@mail.co
-            <button mat-icon-button><mat-icon>clear</mat-icon></button>
-          </span>
-          <div class="aroundAdminnew">
-            ngonendiaye@gmail.co
-            <button mat-icon-button><mat-icon>clear</mat-icon></button>
-          </div>
-        </div>
-      </div>
-    </div>
+    </form>
+  </mat-step>
+<mat-step [stepControl]="secondFormGroup" errorMessage="Address is required." fxLayout="row">
+  <form [formGroup]="secondFormGroup" >
+    <ng-template matStepLabel >Ajouter Des Apprenants</ng-template>
+<mat-card class="example-card">
+  <div class="listAPP">
 
+  <mat-tab-group animationDuration="1000">
+
+      <mat-tab *ngFor="let ref of referentielon" label="{{ref.libelle}}">
+        <div class="addAPP">
+          <h1>Ajouter des apprenants</h1>
+          <mat-form-field class="example-chip-list">
+            <mat-label>Adresse Email</mat-label>
+            <mat-chip-list #chipList aria-label="Fruit selection" formControlName="email">
+              <mat-chip *ngFor="let fruit of fruits"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(fruit)">
+                {{fruit.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <label>
+                <input placeholder="Adresse Email"
+                       #fruitInput
+                       [formControl]="fruitCtrl"
+                       [matChipInputFor]="chipList"
+                       [matAutocomplete]="auto"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="add($event)"
+                       type="email">
+              </label>
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" >
+              <mat-option *ngFor="let ap of tabA" [value]="ap">
+                {{ap}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <p>
+      <button mat-button (click)="sendEmailAndAddAppRef(ref.id)">Ajouter</button>
+           </p>
+        </div>
+  <div class="mListApp">
+    <span><h1>Liste des Apprenants</h1></span>
+    <button mat-raised-button color="primary" style="float:right">Charger fichier cvs</button>
+    <span>
+          {{tabApprenant.length}} Apprenant en attente <button mat-button color="accent" (click)="sendEmailAndAddAppRef(ref.id)">Relancer toutes les invitations</button>
+        </span>
+    <p *ngFor="let a of tabApprenant">
+      {{a}}
+      <button mat-button (click)="sendEmail(ref.id,[a])">Relancer l'invitation</button>
+    </p>
   </div>
-  <span class="vertical-linenew"></span>
-  <div class="listApp">
-    <div class="adminDiv">
-      <div fxLayout="row"  >
-        <div class="divCenter" fxFlexAlign="start center">
-          <h2>Liste des apprenants</h2>
-          <div>
-           <span style="color: blue">02 apprenants en attente</span>
-            <div>
-              <div>example@mail.com</div>
-              <span>ngonendiaye@gmail.co</span>
-            </div>
-          </div>
-        </div>
-        <div class="divCenter" fxFlexAlign="end center">
-          <button mat-raised-button style="background: green;">Charger un fichier cvs</button>
-          <div>
-            <div>
-              <button mat-raised-button style="background: lawngreen; margin: 5px">Relancer toutes les invitations</button>
-            </div>
-            <div>
-              <button mat-raised-button style="background: lawngreen; margin: 5px">Relancer l'invitation</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+      </mat-tab>
+  </mat-tab-group>
   </div>
 </mat-card>
+    <div>
+      <button mat-raised-button matStepperPrevious color="accent" style="margin:3px">Back</button>
+      <button mat-raised-button matStepperNext color="primary">Next</button>
+    </div>
+  </form>
+</mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <div>
+      <button mat-raised-button matStepperPrevious color="accent" style="margin:3px">Back</button>
+      <button mat-button (click)="addPromo()">Creer Promo</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

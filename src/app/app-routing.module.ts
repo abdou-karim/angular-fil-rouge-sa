@@ -12,7 +12,7 @@ import {
   ListerProfilesComponent,
   ListerReferentielsComponent,
   LoginComponent,
-  ProfileDeSortieComponent,
+  ProfileDeSortieComponent, PromotionComponent,
   UtlisateursComponent
 } from './fonctionnalites';
 import {AuthGuard} from './_helpers/auth.guard';
@@ -27,7 +27,7 @@ const routes: Routes =
       path: '', redirectTo: 'admin', pathMatch: 'full', canActivate: [AuthGuard]
     },
     {
-      path: 'admin', component: ADMINISTRATEURComponent, canActivate: [AuthGuard]
+      path: 'admin', component: PromotionComponent, canActivate: [AuthGuard]
     },
     {
       path: 'liste-referentiel', component: ListerReferentielsComponent, canActivate: [AuthGuard]

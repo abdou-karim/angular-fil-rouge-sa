@@ -5,71 +5,119 @@
       </div>
     </mat-card-header>
     <mat-card-content>
-
+      <form [formGroup]="refForm" (ngSubmit)="addRef()">
       <div fxLayout="row" fxLayoutAlign="start center" >
         <label>Libelle</label>
         <mat-form-field>
-          <input type="text" matInput>
+          <input type="text" matInput formControlName="libelle">
         </mat-form-field>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="start center" >
         <label>Presentation</label>
         <mat-form-field>
-         <textarea matInput></textarea>
+         <textarea matInput formControlName="presentation"></textarea>
         </mat-form-field>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="start center" >
-        <label>Competence</label>
+        <label>Groupe de Competence</label>
         <div class="competences">
-            <div class="aroundAdmin">
-              Développer le back-end d'une application web
-              <button mat-icon-button><mat-icon>clear</mat-icon></button>
-            </div>
-          <div class="aroundAdmin">
-            Développer le front-end d'une application web
-              <button mat-icon-button><mat-icon>clear</mat-icon></button>
-            </div>
+
+          <mat-form-field class="example-chip-list">
+            <mat-label>Favorite Fruits</mat-label>
+            <mat-chip-list #chipList aria-label="Fruit selection">
+              <mat-chip
+                *ngFor="let compt of comp"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="removeGrpC(compt)">
+                {{compt}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="New fruit..."
+                #fruitInput
+                formArrayName="groupeCompetence"
+                [formControl]="fruitCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                >
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedGrpCompetence($event)">
+              <mat-option *ngFor="let grpcompt of groupeComp " [value]="'/api/admin/groupe_competences/' + grpcompt.id">
+                {{grpcompt.libelle}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
         </div>
 
       </div>
 
       <div fxLayout="row" fxLayoutAlign="start center" >
         <label>Prgramme</label>
-          <input type="file"  style="display: none" #inputupload>
-          <button mat-raised-button (click)="inputupload.click()">Uploader le programme</button>
+          <input type="file"  style="display: none" #inputupload formControlName="programme" (change)="addProgramme($event)">
+          <button type="button" mat-raised-button (click)="inputupload.click()">Uploader le programme</button>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="start center" >
         <label>Crictere D'evaluation</label>
         <div class="competences">
-          <div class="aroundAdmin">
-            Un portfolio comprenant la réalisation d'au moins 9 projets tout au long de la formation
-          </div>
-          <div class="aroundAdmin">
-            Une soutenance devant un jury de professionnels
-          </div>
-        </div>
+          <mat-form-field class="example-chip-list">
+            <mat-label>Favorite Fruits</mat-label>
+            <mat-chip-list #chipListEv aria-label="Fruit selection" formControlName="cricterDevaluations">
+              <mat-chip
+                *ngFor="let crictrEv of CricEvaluation"
+                [selectable]="selectableCe"
+                [removable]="removableCe"
+                (removed)="removeCriEv(crictrEv)">
+                {{crictrEv}}
+                <mat-icon matChipRemove *ngIf="removableCe">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="New fruit..."
+                #cricterEva
+                [formControl]="cicterEvaluat"
+                [matChipInputFor]="chipListEv"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="addCrictereEva($event)"
+              >
+            </mat-chip-list>
+          </mat-form-field>
       </div>
-
+      </div>
       <div fxLayout="row" fxLayoutAlign="start center" >
         <label>Crictere D'admission</label>
         <div class="competences">
-          <div class="aroundAdmin">
-            Un portfolio comprenant la réalisation d'au moins 9 projets tout au long de la formation
-          </div>
-          <div class="aroundAdmin">
-            Une soutenance devant un jury de professionnels
-            <button mat-icon-button><mat-icon>clear</mat-icon></button>
-          </div>
+          <mat-form-field class="example-chip-list">
+            <mat-label>Favorite Fruits</mat-label>
+            <mat-chip-list #chipListAd aria-label="Fruit selection" formControlName="cricterDadmissions">
+              <mat-chip
+                *ngFor="let crictrAd of Cricadmission"
+                [selectable]="selectableCa"
+                [removable]="removableCa"
+                (removed)="removeCriAd(crictrAd)">
+                {{crictrAd}}
+                <mat-icon matChipRemove *ngIf="removableCe">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="New fruit..."
+                #cricterAdm
+                [formControl]="cicterAdmiss"
+                [matChipInputFor]="chipListAd"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="addCrictereAdmission($event)"
+              >
+            </mat-chip-list>
+          </mat-form-field>
         </div>
       </div>
-
       <div fxLayout="row" fxLayoutAlign="start center" >
         <label></label>
         <button mat-raised-button color="primary">Soumettre</button>
       </div>
+      </form>
     </mat-card-content>
   </mat-card>
 </div>

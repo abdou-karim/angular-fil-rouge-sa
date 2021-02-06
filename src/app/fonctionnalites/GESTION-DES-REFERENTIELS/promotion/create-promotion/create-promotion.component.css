@@ -1,4 +1,7 @@
-
+mat-horizontal-stepper{
+  background:white;
+  box-shadow:0 0 10px 0 rgba(5,0,0, 0.25);
+}
 mat-card{
   width: auto;
   height: auto;
@@ -54,14 +57,6 @@ mat-button-toggle{
 mat-form-field{
   width: 25%;
 }
-.addApp{
-  width: 50%;
-  height: auto;
-}
-.listApp{
-  width: 50%;
-  height: auto;
-}
 .adminDiv{
   width: 70%;
   height: auto;
@@ -102,9 +97,27 @@ mat-form-field{
 
 }
 .vertical-linenew{
-  display: inline-block;
   border-left: 3px solid #ccc;
   margin: 0 10px;
-  height: 30vh;
+  height: 15vh;
   width: 5%;
 }
+.addAPP{
+  width:48%;;
+  height:auto;
+  float:left;
+}.mListApp{
+  width:48%;;
+  height:auto;
+  float:right;
+}
+.listAPP{
+  width:100%;
+  height:auto;
+}
+.example-chip-list{
+  width:100%;
+}
+
+
+

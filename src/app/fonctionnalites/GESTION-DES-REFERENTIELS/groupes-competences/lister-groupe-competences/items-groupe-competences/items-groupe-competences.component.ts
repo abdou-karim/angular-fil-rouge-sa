@@ -3,6 +3,10 @@ import {MatAccordion} from '@angular/material/expansion';
 import {CompetencesService} from '../../../../../_services';
 import {Competences, GroupeCompetence, Tags} from '../../../../../modeles';
 import {Observable} from 'rxjs';
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+// @ts-ignore
+pdfMake.vsf = pdfFonts.pdfMake.vsf;
 
 @Component({
   selector: 'app-items-groupe-competences',
@@ -18,9 +22,12 @@ export class ItemsGroupeCompetencesComponent implements OnInit {
   @Input() Description: string;
   // @ts-ignore
   @Input() libelle: string;
+  @Input() referentiel: any;
   // @ts-ignore
   @Input() IdGroupeCompetence: number;
   @Output() newItemEvent = new EventEmitter<number>();
+  // @ts-ignore
+  @Output() getGrpCompetenceRef = new EventEmitter<GroupeCompetence>();
   @Output() getGrpCompetence = new EventEmitter<boolean>();
   // @ts-ignore
   compte = 0;
@@ -45,7 +52,7 @@ export class ItemsGroupeCompetencesComponent implements OnInit {
       this.background = 'green';
     } else {
       this.valueFlex = 0;
-      this.background = 'darkslateblue';
+      this.background = '#3f51b5';
     }
     this.newItemEvent.emit(this.valueFlex);
     console.log(this.compte % 2);
@@ -65,8 +72,22 @@ export class ItemsGroupeCompetencesComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   downloadPdf() {
-    const pdfUrl = './assets/sample.pdf';
-    const pdfName = 'your_pdf_file';
-    this.FileSaver.saveAs(pdfUrl, pdfName);
+    const programme = { contents: 'dfsdd,fdlfdfs:f:;dsds'};
+    // @ts-ignore
+    pdfMake.createPdf(programme).download();
+  }
+  ViewProgramme(data: any){
+    console.log(data);
+   /* const programme = { contents: 'dfsdd,fdlfdfs:f:;dsds'};
+    // @ts-ignore
+    pdfMake.createPdf(programme).open()*/
+  }
+  sendIdGroupeCompetence(id: number){
+    return this.competenceService.getGrpCompetenceById(id)
+      .subscribe(
+        data => {
+          console.log(data);
+        }
+      )
   }
 }

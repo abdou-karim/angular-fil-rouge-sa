@@ -2,8 +2,8 @@
 
   <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
     <th mat-header-cell *matHeaderCellDef>
-        <span *ngIf="col !== '$$edit' && col !== '$$supp' && col !== '$$liste'">
-          {{col}}
+        <span *ngIf="col !== '$$edit' && col !== '$$supp' && col !== '$$liste'" >
+          <h1 style="font-family:cursive">{{col}}</h1>
         </span>
     </th>
     <td mat-cell *matCellDef="let element">
@@ -11,7 +11,7 @@
         <div  *ngIf="col === '$$edit'" style="">
           <button mat-icon-button (click)="element.isEdit = !element.isEdit"><mat-icon>update</mat-icon></button>
         </div>
-        <span #spanHeader>
+        <span #spanHeader style="font-family: 'Cormorant Garamond', serif;">
             {{element[col]}}
           </span>
       </div>
@@ -19,7 +19,7 @@
         <button mat-icon-button (click)="deleteProfil(element.id)" ><mat-icon>delete</mat-icon></button>
       </div>
       <div  *ngIf="col === '$$liste'">
-        <button mat-raised-button (click)="getProfilId(element.id)" >{{'Liste ' + element.libelle}}</button>
+        <button mat-raised-button (click)="getProfilId(element.id)"  style="font-family: 'Cormorant Garamond', serif;">{{'Liste ' + element.libelle}}</button>
       </div>
       <div *ngIf="element.isEdit">
         <div  *ngIf="col === '$$edit'; else dataField" style="">

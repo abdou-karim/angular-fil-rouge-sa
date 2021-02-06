@@ -1,18 +1,23 @@
 a { color: inherit;text-decoration:none }
-mat-toolbar{
-  background:white;
-  box-shadow:10px 10px 10px 0 rgba(5,0,0, 0.25);
 
+mat-toolbar{
+  position: relative;
+  z-index: 2;
 }
 .maselect{
   margin: 0 auto;
 }
 mat-sidenav-content{
-  background:gainsboro;
   height: auto;
+  width:80%;
+  margin:5% auto;
+  background: white;
+  box-shadow:10px 10px 10px 0 rgba(5,0,0, 0.25);
+}
+.mat-drawer-container{
+  background: whitesmoke;
 }
 
 .mycontent{
   height: auto;
-
 }

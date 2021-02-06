@@ -2,8 +2,16 @@ export interface Referentiels{
   id: number;
   libelle: string;
   presentation: string;
-  crictereAdmission: string;
-  crictereEvaluation: string;
+  cricterDadmissions: [
+    {
+      id: number;
+      libelle: string;
+    }
+  ];
+  cricterDevaluations: [{
+    id: number;
+    libelle: string;
+  }];
   groupeCompetence: [
     {
     id: number;

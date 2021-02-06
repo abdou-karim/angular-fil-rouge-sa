@@ -1,6 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {GroupeCompetence} from '../../../../../modeles';
+import {Crictere, GroupeCompetence} from '../../../../../modeles';
 import {Referentiels} from '../../../../../modeles/referentiels';
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+import {Router} from '@angular/router';
+// @ts-ignore
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-item-referentiels',
@@ -8,14 +13,17 @@ import {Referentiels} from '../../../../../modeles/referentiels';
   styleUrls: ['./item-referentiels.component.css']
 })
 export class ItemReferentielsComponent implements OnInit {
+  previewUrl: any = null;
 // @ts-ignore
   @Input() presentation: string;
   // @ts-ignore
-  @Input() Cricteredevaluation: string;
+  @Input() Cricteredevaluation: Referentiels.cricterDevaluations[];
   // @ts-ignore
-  @Input() Cricteredadmission: string;
+  @Input() Cricteredadmission: Referentiels.cricterDadmissions[];
   // @ts-ignore
   @Input() libelle: string;
+  // @ts-ignore
+  @Input() programme: any;
   // @ts-ignore
   @Input() grpcompetenceModele: Referentiels.groupeCompetence[];
   @Output() getvalueFlex = new EventEmitter<number>();
@@ -25,7 +33,8 @@ export class ItemReferentielsComponent implements OnInit {
   // @ts-ignore
   background: string;
   displayedColumns: string[] = ['libelle', 'descriptif'];
-  constructor() { }
+  displayedColumns2: string[] = ['libelle'];
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
   }
@@ -37,9 +46,26 @@ export class ItemReferentielsComponent implements OnInit {
       this.background = 'green';
     } else {
       this.valueFlex = 0;
-      this.background = 'darkslateblue';
+      this.background = '#3f51b5';
     }
     this.getvalueFlex.emit(this.valueFlex);
     console.log(this.compte % 2);
   }
+  // tslint:disable-next-line:typedef
+  downloadPdf() {
+    const programme = { contents: 'dfsdd,fdlfdfs:f:;dsds'};
+    // @ts-ignore
+    pdfMake.createPdf(programme).download();
+  }
+  ViewProgramme(programe: any){
+    let docDefinition = {
+      header: 'C#Corner PDF Header',
+      content: 'dddddddddddddddddddd',
+      type: 'application/pdf'
+    };
+    // @ts-ignore
+    pdfMake.createPdf(docDefinition).open();
+
+  }
+
 }

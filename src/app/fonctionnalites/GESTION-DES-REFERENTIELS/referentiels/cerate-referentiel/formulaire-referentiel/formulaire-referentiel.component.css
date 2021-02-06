@@ -11,12 +11,9 @@ mat-form-field{
 .competences{
   width: 50%;
   height: auto;
- border:2px solid #ccc ;
-  flex-wrap: wrap;
-  margin: 10px;
 }
 .aroundAdmin{
-  border:2px solid #000000;
+  border:2px solid #CCC;
   border-radius: 30%;
   width: auto;
   font-weight: bold;
@@ -25,4 +22,7 @@ mat-form-field{
   margin: 5px auto;
   height: auto;
 
+}
+.competences,mat-form-field{
+  width:100%;
 }

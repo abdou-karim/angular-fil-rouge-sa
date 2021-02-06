@@ -46,6 +46,7 @@ export class FormulaitreUtilisateurComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onFileSelected(imageInput: any) {
     this.fileData = (imageInput.target.files[0] as File);
+    console.log(this.fileData);
     this.preview();
   }
 

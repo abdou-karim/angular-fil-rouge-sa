@@ -3,8 +3,8 @@
 
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
       <th mat-header-cell *matHeaderCellDef>
-        <span *ngIf="col !== '$$edit' && col !== '$$supp' && col !== '$$liste'">
-          {{col}}
+        <span *ngIf="col !== '$$edit' && col !== '$$supp' && col !== '$$liste'"  >
+          <h1 style="font-family: cursive;">{{col}}</h1>
         </span>
       </th>
       <td mat-cell *matCellDef="let element" >
@@ -12,7 +12,7 @@
           <div  *ngIf="col === '$$edit'" style="">
             <button mat-icon-button (click)="element.isEdit = !element.isEdit"><mat-icon>update</mat-icon></button>
           </div>
-          <span #spanHeader *ngIf="col !== 'photo' && col !== 'profile'">
+          <span #spanHeader *ngIf="col !== 'photo' && col !== 'profile'"  style="font-family: 'Cormorant Garamond', serif;">
             {{element[col]}}
           </span>
           <span *ngIf="col === 'photo'" #spanHeader>

@@ -9,7 +9,7 @@
           <mat-form-field>
             <mat-label> Choisir Groupe Competence</mat-label>
             <mat-select >
-              <mat-option value="{{grpCompet.libelle}}" (click)="getMyGroupeCompetence(grpCompet.competence)" *ngFor="let grpCompet of grpCompetence">{{grpCompet.libelle}}</mat-option>
+              <mat-option value="{{grpCompet.libelle}}" (click)="getMyGroupeCompetence(grpCompet.competence)" *ngFor="let grpCompet of grpCompetence" style="font-family: 'Cormorant Garamond', serif;">{{grpCompet.libelle}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -18,7 +18,7 @@
           <ul >
             <li>
               <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="copeten" >
-                <mat-button-toggle class="copeten" (click)="getNiveau(competen.niveaux,monBol)" *ngFor="let competen of competence"><h3><button mat-raised-button>{{competen.libelle }}</button></h3></mat-button-toggle>
+                <mat-button-toggle class="copeten" (click)="getNiveau(competen.niveaux,monBol)" *ngFor="let competen of competence"><h3 ><button mat-raised-button style="font-family: 'Cormorant Garamond', serif;">{{competen.libelle }}</button></h3></mat-button-toggle>
               </mat-button-toggle-group>
             </li>
           </ul>
@@ -31,13 +31,13 @@
     <div class="myheader">
       <span>
           <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle value="bold" (click)="getCrictere(niv.crictereDevaluation, niv.groupeDaction)" *ngFor="let niv of niveau"><button mat-raised-button >{{niv.libelle}}</button></mat-button-toggle>
+    <mat-button-toggle value="bold" (click)="getCrictere(niv.crictereDevaluation, niv.groupeDaction)" *ngFor="let niv of niveau"><button mat-raised-button  style="font-family: 'Cormorant Garamond', serif;">{{niv.libelle}}</button></mat-button-toggle>
   </mat-button-toggle-group>
       </span>
     </div>
     <strong>
 
-    <h2>
+    <h2 style="font-family: 'Cormorant Garamond', serif;">
      <p style="color: red; font-weight: bold">Groupe d'actions à réaliser</p>
     {{groupeDaction}}
     </h2>
@@ -46,7 +46,7 @@
   <div class="niv2" *ngIf="monBol">
     <strong>
 
-      <h2>
+      <h2 style="font-family: 'Cormorant Garamond', serif;">
         <p style="color: red; font-weight: bold">Critères d'évaluation</p>
      {{crictereDevaluation}}
       </h2>

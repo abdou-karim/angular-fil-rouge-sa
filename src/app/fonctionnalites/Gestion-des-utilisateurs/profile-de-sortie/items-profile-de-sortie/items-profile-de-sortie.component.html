@@ -2,7 +2,7 @@
   <!-- Position Column -->
   <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
     <th mat-header-cell *matHeaderCellDef>
-        <span *ngIf="col !== '$$edit' && col !== '$$supp'">
+        <span *ngIf="col !== '$$edit' && col !== '$$supp'"  style="font-family: cursive">
           {{col}}
         </span>
     </th>
@@ -11,7 +11,7 @@
         <div  *ngIf="col === '$$edit'" style="margin-left: 18vw">
           <button mat-icon-button (click)="element.isEdit = !element.isEdit"><mat-icon>update</mat-icon></button>
         </div>
-        <span #spanHeader>
+        <span #spanHeader  style="font-family: 'Cormorant Garamond', serif;">
             {{element[col]}}
           </span>
       </div>

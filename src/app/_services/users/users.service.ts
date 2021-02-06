@@ -23,6 +23,10 @@ export class UsersService {
   {
     return  this.generalService.getAll(`${this.API_URL}/admin/users?page=${value}&archivage=false`);
   }
+  getAllApprenat(value: number): Observable<Utilisateur[]>
+  {
+    return  this.generalService.getAll(`${this.API_URL}/admin/apprenants?page=${value}&archivage=false`);
+  }
   // tslint:disable-next-line:typedef
   getUserId(id: number){
     return this.generalService.getModelById(`${this.API_URL}/admin/users`, Number(`${id}`));

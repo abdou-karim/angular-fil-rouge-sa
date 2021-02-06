@@ -7,10 +7,10 @@
 .comp{
   width: auto;
   height: auto;
-  border: 2px solid #000000;
+  border:2px solid #CCC;
 }
 .aroundAdmin{
-  border:2px solid #000000;
+  border:2px solid #CCC;
   width: auto;
   font-weight: bold;
   text-align: center;
@@ -18,20 +18,20 @@
 
 }
 .vertical-line{
-  border-left: 3px solid #000;
+  border:2px solid #CCC;
   height: 5vh;
 }
 .niv1{
   width: auto;
   height: auto;
   text-align: center;
-  border: 2px solid #000000;
+  border:2px solid #CCC;
 }
 .niv2{
   width: auto;
   height: auto;
   text-align: center;
-  border: 2px solid #000000;
+  border:2px solid #CCC;
 }
 li{
   list-style: none;
@@ -39,10 +39,10 @@ li{
 }
 .myheader,button{
   margin: 5px;
-  border: 2px solid #000000;
+  border:2px solid #CCC;
 }
 .myheader{
-  border: 2px solid #000000;
+  border:2px solid #CCC;
 }
 mat-form-field{
   width:100%;

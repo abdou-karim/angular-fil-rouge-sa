@@ -5,6 +5,8 @@ import { Directive, Output, EventEmitter, HostBinding, HostListener, HostBinding
 export class UploadDirective {
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onFileDropped = new EventEmitter<any>();
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() onChnageFile = new EventEmitter<any>();
   @HostBinding('style.background-color') public background = '#fff';
   @HostBinding('style.opacity') public opacity = '1';
 
@@ -39,6 +41,18 @@ export class UploadDirective {
     if (files.length > 0) {
       this.onFileDropped.emit(files);
     }
+  }
+
+  // tslint:disable-next-line:typedef
+  // @ts-ignore
+  // tslint:disable-next-line:typedef
+  @HostListener('change', ['$event']) public onchange(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.background = '#f5fcff';
+    this.opacity = '1';
+    const files = (evt.target.files as File);
+    this.onChnageFile.emit(files);
   }
   constructor() { }
 }

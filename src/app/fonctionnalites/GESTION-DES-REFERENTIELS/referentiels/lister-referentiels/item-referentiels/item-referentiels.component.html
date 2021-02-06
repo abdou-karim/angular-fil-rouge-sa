@@ -1,7 +1,7 @@
 <div class="cardeRef">
   <mat-card class="example-card">
     <div class="header" fxLayout="row" [style]="'background:' + background">
-    <span class="mat-display-1" fxFlex>
+    <span class="mat-display-1" fxFlex  style="font-family: cursive;">
        {{libelle}}
     </span>
       <span>
@@ -26,14 +26,14 @@
             <mat-table [dataSource]="grpcompetenceModele" class="mat-elevation-z8">
               <!-- Position Column -->
               <ng-container matColumnDef="libelle">
-                <mat-header-cell *matHeaderCellDef> Libelle </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.libelle}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> <h1 style="font-family: cursive;">Libelle</h1> </mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font-family: 'Cormorant Garamond', serif;"> {{element.libelle}} </mat-cell>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="descriptif">
-                <mat-header-cell *matHeaderCellDef> Descriptif </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> <h1 style="font-family: cursive;">Descriptif</h1>  </mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font-family: 'Cormorant Garamond', serif;"> {{element.description}} </mat-cell>
               </ng-container>
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
@@ -42,13 +42,61 @@
         </mat-expansion-panel>
       </div>
       <div class="secondContainer">
-        Programme
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Programme
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <span>
+              <button mat-icon-button fxFlex (click)="downloadPdf()"><mat-icon>save_alt</mat-icon></button>
+              <button mat-icon-button  (click)="ViewProgramme(programme)"><mat-icon>visibility</mat-icon></button>
+            </span>
+          </div>
+        </mat-expansion-panel>
       </div>
       <div class="secondContainer">
-        {{ Cricteredevaluation}}
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Crictere D'evaluation
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <mat-table [dataSource]="Cricteredevaluation" class="mat-elevation-z8">
+              <!-- Position Column -->
+              <ng-container matColumnDef="libelle">
+                <mat-header-cell *matHeaderCellDef> <h1 style="font-family: cursive;">Libelle</h1> </mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font-family: 'Cormorant Garamond', serif;"> {{element.libelle}} </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+            </mat-table>
+          </div>
+        </mat-expansion-panel>
       </div>
       <div class="secondContainer">
-        {{Cricteredadmission}}
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Crictere D'admission
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <mat-table [dataSource]="Cricteredadmission" class="mat-elevation-z8">
+              <!-- Position Column -->
+              <ng-container matColumnDef="libelle">
+                <mat-header-cell *matHeaderCellDef> <h1 style="font-family: cursive;">Libelle</h1> </mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font-family: 'Cormorant Garamond', serif;"> {{element.libelle}} </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+            </mat-table>
+          </div>
+        </mat-expansion-panel>
       </div>
     </mat-card-content>
   </mat-card>

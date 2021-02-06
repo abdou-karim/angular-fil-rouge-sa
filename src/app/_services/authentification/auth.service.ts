@@ -58,7 +58,7 @@ export class AuthService {
     const helper = new JwtHelperService();
     const decodeToken = helper.decodeToken(token);
     if (decodeToken.roles[0] === 'ROLE_Administrateur') {
-      this.router.navigate(['/']);
+      this.router.navigate(['/admin']);
     }
   }
 }

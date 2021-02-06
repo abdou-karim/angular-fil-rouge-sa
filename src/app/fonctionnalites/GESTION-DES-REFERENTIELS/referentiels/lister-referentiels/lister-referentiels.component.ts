@@ -23,7 +23,6 @@ getReferentiel(){
       .subscribe(
         data => {
           this.referentiel = data['hydra:member'];
-          console.log(this.referentiel);
         }
       );
 }

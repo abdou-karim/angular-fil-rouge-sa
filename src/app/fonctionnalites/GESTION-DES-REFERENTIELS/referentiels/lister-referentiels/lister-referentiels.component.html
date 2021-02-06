@@ -1,5 +1,5 @@
 <div class="adminDiv">
-  <div fxLayout="row"  fxFlexAlign="center center">
+  <div fxLayout="row"  fxFlexAlign="center center" class="listRef">
     <div  class="aroundAdmin" >admin</div>
     <div class="divCenter mat-display-1">Liste des referentiels</div>
     <div>
@@ -9,9 +9,10 @@
     <app-item-referentiels
       *ngFor="let item of referentiel"
       [presentation]="item.presentation"
-      [Cricteredadmission]="item.crictereAdmission"
-      [Cricteredevaluation]="item.crictereEvaluation"
+      [Cricteredadmission]="item.cricterDadmissions"
+      [Cricteredevaluation]="item.cricterDevaluations"
       [libelle]="item.libelle"
+      [programme]="item.programme"
       [grpcompetenceModele]="item.groupeCompetence"
       (getvalueFlex)="getvalue($event)"
       fxFlex="{{valueFlex}}"></app-item-referentiels>

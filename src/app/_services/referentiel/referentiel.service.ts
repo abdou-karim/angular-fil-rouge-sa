@@ -17,8 +17,8 @@ export class ReferentielService {
     })
   };
   // tslint:disable-next-line:typedef
-  getReferentiel(){
-    return this.geneService.getAll(`${this.API_URL}/admin/referentiels`);
+  getReferentielR(value: number){
+    return this.geneService.getAll(`${this.API_URL}/admin/referentiels?page=${value}`);
   }
 
   postReferentiel(objct: FormData){

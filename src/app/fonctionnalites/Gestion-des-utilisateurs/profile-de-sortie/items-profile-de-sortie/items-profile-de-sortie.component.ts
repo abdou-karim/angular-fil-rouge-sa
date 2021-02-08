@@ -41,6 +41,15 @@ const USER_SCHEMA = {
   styleUrls: ['./items-profile-de-sortie.component.css']
 })
 export class ItemsProfileDeSortieComponent implements OnInit {
+  num = 1;
+  // @ts-ignore
+  totalItems: number;
+  // @ts-ignore
+  nombrePage: number;
+  // @ts-ignore
+  PnomPerPage: number;
+  disableBtnP: boolean = false;
+  disableBtnN: boolean = false;
   constructor(private profilSortieService: ProfileSortieService) { }
 
   displayedColumns: string[] = ['libelle' , '$$edit', '$$supp'];
@@ -54,12 +63,48 @@ export class ItemsProfileDeSortieComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   getProfilSortie(){
-    return this.profilSortieService.getAllProfilSortie().subscribe(
+    return this.profilSortieService.getAllProfilSortie(Number(`${this.num}`)).subscribe(
       data => {
         // @ts-ignore
         this.profileSortie = data['hydra:member'];
+        // @ts-ignore
+        this.totalItems = data['hydra:totalItems'];
+        // @ts-ignore
+        this.PnomPerPage = this.profileSortie.length;
+        console.log(this.profileSortie.length);
       }
     );
+  }
+  // tslint:disable-next-line:typedef
+  next() {
+    this.num = this.num + 1;
+    this.nombrePage = this.totalItems / this.PnomPerPage;
+    if (this.num >= this.nombrePage) {
+      this.disableBtnN = true;
+      this.num = this.nombrePage;
+    }
+    this.disableBtnP = true;
+    return this.profilSortieService.getAllProfilSortie(Number(`${this.num}`)).subscribe(data => {
+      // @ts-ignore
+      this.profileSortie = data['hydra:member'];
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  preview() {
+    this.num = this.num - 1;
+    if (this.num <= 1) {
+      this.num = 1;
+      this.disableBtnP = false;
+    }
+    if (this.num < this.nombrePage) {
+      this.disableBtnN = false;
+    }
+    // tslint:disable-next-line:triple-equals
+    return this.profilSortieService.getAllProfilSortie(Number(`${this.num}`)).subscribe(data => {
+      // @ts-ignore
+      this.profileSortie = data['hydra:member'];
+    });
   }
   // tslint:disable-next-line:typedef
   delete(id: number){

@@ -10,9 +10,9 @@ import {environment} from '../../../environments/environment';
 export class ProfileSortieService {
   private API_URL = environment.apiUrl;
   constructor(private gene: GeneralService) { }
-  getAllProfilSortie(): Observable<Utilisateur[]>
+  getAllProfilSortie(value: number): Observable<Utilisateur[]>
   {
-    return  this.gene.getAll(`${this.API_URL}/admin/profil_sorties?archivage=false`);
+    return  this.gene.getAll(`${this.API_URL}/admin/profil_sorties?page=${value}&archivage=false`);
   }
   // tslint:disable-next-line:typedef
   delete(id: number) {

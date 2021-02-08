@@ -29,9 +29,14 @@ export class CompetencesService {
   {
     return this.geneService.getAll(`${this.API_URL}/admin/competences`);
   }
+
   // tslint:disable-next-line:typedef
   getGroupeCompetence(){
     return this.geneService.getAll(`${this.API_URL}/admin/groupe_competences?archivage=false`);
+  }
+  // tslint:disable-next-line:typedef
+  getGroupeCompetenceG(value:number){
+    return this.geneService.getAll(`${this.API_URL}/admin/groupe_competences?page=${value}&archivage=false`);
   }
   // tslint:disable-next-line:typedef
   addGroupeCompetence(grpCompetence: GroupeCompetence): Observable<GroupeCompetence>

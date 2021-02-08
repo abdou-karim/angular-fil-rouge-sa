@@ -36,3 +36,13 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<div class="example-container mat-elevation-z8">
+        <span  fxLayout="row" fxLayoutAlign="center center">
+         <button mat-raised-button [disabled]="!disableBtnP" (click)="preview()">
+        <mat-icon >fast_rewind</mat-icon>
+      </button>
+       <button mat-raised-button class="divmine" [disabled]="disableBtnN" (click)="next()">
+        <mat-icon >fast_forward</mat-icon>
+      </button>
+    </span>
+</div>

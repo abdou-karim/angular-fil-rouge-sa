@@ -23,6 +23,15 @@ export class ItemsCompetencesComponent implements OnInit {
   monBol = false;
   // @ts-ignore
   competenceOk: boolean;
+  num = 1;
+  // @ts-ignore
+  totalItems: number;
+  // @ts-ignore
+  nombrePage: number;
+  // @ts-ignore
+  GpCPerPage: number;
+  disableBtnP: boolean = false;
+  disableBtnN: boolean = false;
   constructor(private competenceService: CompetencesService) {
     this.competenceService.etatCompetence.subscribe(
       data => {
@@ -36,10 +45,24 @@ export class ItemsCompetencesComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   getGrcompetence(){
+    let timeOu = setTimeout(
+      () => {
+        this.num = this.num +1;
+        this.nombrePage = this.totalItems / this.nombrePage;
+        if (this.num >= this.nombrePage) {
+          this.num = this.nombrePage;
+        }
+        this.getGrcompetence();
+      }
+      ,500)
       return this.competenceService.getGroupeCompetence()
         .subscribe(
           data => {
             this.grpCompetence = data['hydra:member'];
+            // @ts-ignore
+            this.totalItems = data['hydra:totalItems'];
+            // @ts-ignore
+            this.nombrePage = data['hydra:member'].length;
             if (this.competenceOk){
            this.getGrcompetence();
          }

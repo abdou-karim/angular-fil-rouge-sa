@@ -49,6 +49,15 @@ export class CreatePromotionComponent implements OnInit {
   fileData: File = null;
   compte = 0;
   num = 1;
+  numRef = 1;
+  // @ts-ignore
+  totalItemsRef: number;
+  // @ts-ignore
+  nombrePageRef: number;
+  // @ts-ignore
+  RefPerPage: number;
+  disableBtnP: boolean = false;
+  disableBtnN: boolean = false;
   // @ts-ignore
   totalItems: number;
   // @ts-ignore
@@ -94,12 +103,47 @@ export class CreatePromotionComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   getReferentiel(){
-    return this.referentielService.getReferentiel()
+    return this.referentielService.getReferentielR(Number(`${this.numRef}`))
       .subscribe(
         data => {
           this.referentiel =  data['hydra:member'];
+          // @ts-ignore
+          this.totalItemsRef = data['hydra:totalItems'];
+          // @ts-ignore
+          this.RefPerPage = data['hydra:member'].length;
         }
       );
+  }
+  // tslint:disable-next-line:typedef
+  next() {
+    this.numRef = this.numRef + 1;
+    this.nombrePageRef = this.totalItemsRef / this.RefPerPage;
+    if (this.numRef >= this.nombrePageRef) {
+      this.disableBtnN = true;
+      this.numRef = this.nombrePageRef;
+    }
+    this.disableBtnP = true;
+    return this.referentielService.getReferentielR(Number(`${this.numRef}`)).subscribe(data => {
+      // @ts-ignore
+      this.referentiel = data['hydra:member'];
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  preview() {
+    this.numRef = this.numRef - 1;
+    if (this.numRef <= 1) {
+      this.numRef = 1;
+      this.disableBtnP = false;
+    }
+    if (this.numRef < this.nombrePageRef) {
+      this.disableBtnN = false;
+    }
+    // tslint:disable-next-line:triple-equals
+    return this.referentielService.getReferentielR(Number(`${this.numRef}`)).subscribe(data => {
+      // @ts-ignore
+      this.referentiel = data['hydra:member'];
+    });
   }
   getApprenant(){
     let timeOu = setTimeout(
@@ -174,7 +218,8 @@ export class CreatePromotionComponent implements OnInit {
       this.tabNRef.splice(indexx,1);
       console.log(this.refControl.value);
     }
-    if (el.checked === true){
+    // @ts-ignore
+    if (el.checked === true ){
       // @ts-ignore
       this.tabRef.push(ref);
       // @ts-ignore

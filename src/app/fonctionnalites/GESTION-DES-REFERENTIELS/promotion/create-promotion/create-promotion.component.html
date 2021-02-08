@@ -105,7 +105,16 @@
             </mat-grid-tile>
           </mat-grid-list>
         </div>
-
+      <div>
+        <span  fxLayout="row" fxLayoutAlign="center center">
+         <button mat-raised-button  [disabled]="!disableBtnP" (click)="preview()">
+        <mat-icon >fast_rewind</mat-icon>
+      </button>
+       <button mat-raised-button  class="divmine" [disabled]="disableBtnN" (click)="next()">
+        <mat-icon >fast_forward</mat-icon>
+      </button>
+    </span>
+      </div>
       </div>
 
       </div>

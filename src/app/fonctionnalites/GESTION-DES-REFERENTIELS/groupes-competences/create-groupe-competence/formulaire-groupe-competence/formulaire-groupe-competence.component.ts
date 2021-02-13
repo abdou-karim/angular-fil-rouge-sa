@@ -3,7 +3,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {Observable, Subscription} from 'rxjs';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {map, startWith} from 'rxjs/operators';
+import {first, map, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {CompetencesService, TagsService} from '../../../../../_services';
 import {Competences, Tags} from '../../../../../modeles';
@@ -11,6 +11,8 @@ import {GroupeCompetence} from '../../../../../modeles';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Tag} from 'primeng/tag';
+import {ActivatedRoute, Router} from '@angular/router';
+import {log} from 'util';
 
 
 @Component({
@@ -19,6 +21,8 @@ import {Tag} from 'primeng/tag';
   styleUrls: ['./formulaire-groupe-competence.component.css']
 })
 export class FormulaireGroupeCompetenceComponent implements OnInit{
+  // @ts-ignore
+  valueBtn = "Soumettre";
   visible = true;
   selectable = true;
   removable = true;
@@ -42,11 +46,15 @@ export class FormulaireGroupeCompetenceComponent implements OnInit{
   dataSource: any;
   selection = new SelectionModel<Tags>(true, []);
    tags = new FormControl();
+  isAddMode!: boolean;
+   // @ts-ignore
+  myId: number;
   // @ts-ignore
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
   // @ts-ignore
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
-  constructor(private competenceService: CompetencesService, private fb: FormBuilder, private tagService: TagsService) {
+  constructor(private competenceService: CompetencesService,
+              private fb: FormBuilder, private tagService: TagsService, private route: ActivatedRoute, private router: Router,) {
     this.getCompetenceChips();
     this.getTag();
      }
@@ -57,8 +65,20 @@ export class FormulaireGroupeCompetenceComponent implements OnInit{
       competence: [[], Validators.required],
       tags: [[]]
     });
+    this.myId = this.route.snapshot.params['id'];
+    this.isAddMode = !this.myId;
     this.getComppetences();
     this.competenceCtrlfc.setValue(this.tabCompetenceValue);
+    if(!this.isAddMode){
+      this.valueBtn = "Modifier"
+      this.competenceService.getGrpCompetenceById(Number(`${this.myId}`))
+        .pipe(first())
+        .subscribe(x => {
+          console.log(x);
+          this.addGroupeCompetenceForm.patchValue(x);
+        });
+    }
+
   }
   // tslint:disable-next-line:typedef
   get competenceCtrlfc() {
@@ -137,14 +157,31 @@ export class FormulaireGroupeCompetenceComponent implements OnInit{
     return this.allCompetence.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
   }
   // tslint:disable-next-line:typedef
-  onAddCompetence(): Subscription{
+  onAddCompetence(){
+    if (this.isAddMode) {
+      this.createGrpCompetence();
+    } else {
+      this.updateGroupeCompetence();
+    }
+  }
+  private createGrpCompetence(){
     return this.competenceService.addGroupeCompetence(this.addGroupeCompetenceForm.value)
       .subscribe(
-        data => {
+        () => {
           this.addGroupeCompetenceForm.reset();
-          return data;
+          this.router.navigate(['/lister-groupes-competences']);
         }
       );
+  }
+  private updateGroupeCompetence(){
+    // @ts-ignore
+    return this.competenceService.updateGroupeCompetence(this.addGroupeCompetenceForm.value,Number(`${this.myId}`))
+      .pipe(first())
+      .subscribe(
+        () => {
+          this.router.navigate(['/lister-groupes-competences']);
+        }
+      )
   }
   //////////////////////// tag ////////////////////
   /** Whether the number of selected elements matches the total number of rows. */
@@ -172,5 +209,8 @@ export class FormulaireGroupeCompetenceComponent implements OnInit{
   getChecboxValu(value: any){
     this.tabTagValue.push(value);
     this.tagsValue.setValue(this.tabTagValue);
+  }
+  goBack(){
+    this.router.navigate(['/lister-groupes-competences'])
   }
 }

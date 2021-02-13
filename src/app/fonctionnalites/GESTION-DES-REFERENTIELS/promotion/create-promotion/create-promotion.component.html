@@ -107,10 +107,10 @@
         </div>
       <div>
         <span  fxLayout="row" fxLayoutAlign="center center">
-         <button mat-raised-button  [disabled]="!disableBtnP" (click)="preview()">
+         <button mat-raised-button type="button" [disabled]="!disableBtnP" (click)="preview()">
         <mat-icon >fast_rewind</mat-icon>
       </button>
-       <button mat-raised-button  class="divmine" [disabled]="disableBtnN" (click)="next()">
+       <button mat-raised-button type="button" class="divmine" [disabled]="disableBtnN" (click)="next()">
         <mat-icon >fast_forward</mat-icon>
       </button>
     </span>
@@ -136,7 +136,7 @@
   </mat-card-content>
 </mat-card>
       <div>
-        <button mat-raised-button matStepperNext color="primary">Next</button>
+        <button mat-raised-button matStepperNext color="primary">Suivant</button>
       </div>
     </form>
   </mat-step>
@@ -185,7 +185,8 @@
         </div>
   <div class="mListApp">
     <span><h1>Liste des Apprenants</h1></span>
-    <button mat-raised-button color="primary" style="float:right">Charger fichier cvs</button>
+    <button mat-raised-button color="primary" style="float:right" (click)="fiLcVS.click()">Charger fichier cvs</button>
+    <input type="file" #fiLcVS name="fileUpload"  appUpload (onChnageFile)="uploadFileCVS($event)" multiple="multiple" style="display:none;"/>
     <span>
           {{tabApprenant.length}} Apprenant en attente <button mat-button color="accent" (click)="sendEmailAndAddAppRef(ref.id)">Relancer toutes les invitations</button>
         </span>
@@ -200,15 +201,15 @@
   </div>
 </mat-card>
     <div>
-      <button mat-raised-button matStepperPrevious color="accent" style="margin:3px">Back</button>
-      <button mat-raised-button matStepperNext color="primary">Next</button>
+      <button mat-raised-button matStepperPrevious color="accent" style="margin:3px">Precedent</button>
+      <button mat-raised-button matStepperNext color="primary">Suivant</button>
     </div>
   </form>
 </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
+    <ng-template matStepLabel>Terminer</ng-template>
     <div>
-      <button mat-raised-button matStepperPrevious color="accent" style="margin:3px">Back</button>
+      <button mat-raised-button matStepperPrevious color="accent" style="margin:3px">Retour</button>
       <button mat-button (click)="addPromo()">Creer Promo</button>
     </div>
   </mat-step>

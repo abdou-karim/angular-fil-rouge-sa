@@ -59,10 +59,11 @@
 
       <div fxLayout="row" fxLayoutAlign="start center" >
         <label></label>
-        <button mat-raised-button color="primary">Soumettre</button>
+        <button mat-raised-button color="primary">{{valueBtn}}</button>
       </div>
     </mat-card-content>
   </mat-card>
+
     <!--/////////////////////////////////////tag/////////////////////////////////////-->
   <div class="tagP">
         <div fxLayout="row"><h2 style="font-weight: bold;margin: 0 auto;">Liste Tags</h2></div>
@@ -106,7 +107,9 @@
           (click)="selection.toggle(row)">
       </tr>
     </table>
-
+    <div>
+      <button style="float:right" mat-raised-button color="accent" (click)="goBack()">Retour</button>
+    </div>
   </div>
   </form>
 </div>

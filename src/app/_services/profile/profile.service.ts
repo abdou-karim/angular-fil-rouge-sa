@@ -4,6 +4,7 @@ import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Utilisateur} from '../../modeles';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,15 @@ export class ProfileService {
   {
     // @ts-ignore
     return this.generalService.getModelById<Utilisateur[]>(`${this.API_URL}/admin/profils`, `${id}`, 'users');
+  }
+  updateprofil(obej:any,id:number){
+    return this.http.put(`${this.API_URL}/admin/profils/${id}`,obej)
+      .pipe(
+        map(
+          p => {
+            return p;
+          }
+        )
+      );
   }
 }

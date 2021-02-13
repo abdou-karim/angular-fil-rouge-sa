@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {Utilisateur} from '../../../../modeles';
 import {UsersService} from '../../../../_services/users/users.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {MatInput} from '@angular/material/input';
+import {newArray} from '@angular/compiler/src/util';
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+// @ts-ignore
+pdfMake.vsf = pdfFonts.pdfMake.vsf;
+import Swal from 'sweetalert2';
 
 /*const ELEMENT_DATA: Utilisateur[] = [
   // tslint:disable-next-line:max-line-length
@@ -38,7 +45,7 @@ const USER_SCHEMA = {
 })
 export class ItemUtilisateursComponent implements OnInit {
 
-  displayedColumns: string[] = ['photo', 'username', 'email', 'fisrtname', 'profile', '$$edit', '$$supp', '$$liste'];
+  displayedColumns: string[] = ['photo', 'username', 'email', 'fisrtname', 'profile', '$$edit', '$$supp', '$$liste','$$cEtudiant'];
   dataSchema = USER_SCHEMA;
   // @ts-ignore
   updateForm: FormGroup;
@@ -56,6 +63,9 @@ export class ItemUtilisateursComponent implements OnInit {
   showdiv: boolean = false;
   // @ts-ignore
   userId: number;
+  // @ts-ignore
+  userInfos: string[] =[];
+  tt: any;
 
   constructor(private userService: UsersService, private fb: FormBuilder) {
   }
@@ -115,13 +125,30 @@ export class ItemUtilisateursComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   deleteUser(id: number) {
-    if (confirm('Confirmer la suppression')) {
-      this.userService.delete(Number(`${id}`)).subscribe(
-        () => {
-          this.getAllUser();
-        }
-      );
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "Vous ne pourrez pas revenir en arrière!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.delete(Number(`${id}`)).subscribe(
+          () => {
+            this.getAllUser();
+          }
+        );
+        Swal.fire(
+          'Deleted!',
+          'u' +
+          'Utlisateur  supprimé.',
+          'success'
+        )
+      }
+    })
   }
 
   // tslint:disable-next-line:typedef
@@ -129,12 +156,54 @@ export class ItemUtilisateursComponent implements OnInit {
     this.userId = id;
     this.showdiv = !this.showdiv;
   }
-  // tslint:disable-next-line:typedef
-  onUpdate(element: HTMLFormElement){
-    console.log(element);
+  getModif(col: any,value: string,id:number){
+    let userI ={};
+    // @ts-ignore
+    userI[col] = value;
+    // @ts-ignore
+    userI["_method"] = "PUT"
+    // @ts-ignore
+    this.userInfos.push(userI)
+    //this.userInfos[col] = value;
+    // @ts-ignore
+    //let formData = new FormData();
+    // @ts-ignore
+    // formData.append("", JSON.stringify(this.userInfos));
+    // formData.append('_method','PUT');
+    return this.userService.UpdateUser([userI],Number(`${id}`))
+      .subscribe(
+        data => {
+          console.log(data);
+        }
+      );
+
   }
   // tslint:disable-next-line:typedef
-  onKey(event: any){
-    console.log( event);
+  onUpdate(id:number) {
   }
+  // tslint:disable-next-line:typedef
+  downloadPdf() {
+    const programme = {
+      content: `<div style="background:red;width:90%;height:100px">
+lorem500
+</div>`
+    };
+    // @ts-ignore
+    pdfMake.createPdf(programme).download();
+  }
+  genereCarteEtudiant(el: Utilisateur){
+    console.log(el);
+    const programme = {
+      content: [
+        {
+       html:`<div>lllll</div>`
+        },
+          ],
+      styles:{
+      }
+    };
+    // @ts-ignore
+    pdfMake.createPdf(programme).open();
+  }
+
 }

@@ -37,11 +37,9 @@ export class UsersService {
   }
 
   // tslint:disable-next-line:typedef
-  UpdateUser(object: object, id: number){
-    console.log(object);
-    return  this.http.put<any>(`${this.API_URL}/admin/users/${id}`, {object}, this.httpOptions)
+  UpdateUser(object: any, id: number){
+    return  this.http.put(`${this.API_URL}/admin/users/${id}`, object)
       .pipe(
-        retry(1),
         // tslint:disable-next-line:no-shadowed-variable
         map( Users => {
           return Users;

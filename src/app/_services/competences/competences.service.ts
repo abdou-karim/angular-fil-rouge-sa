@@ -71,4 +71,12 @@ export class CompetencesService {
   getGrpCompetenceById(id: number): Observable<GroupeCompetence[]>{
     return this.geneService.getModelById(`${this.API_URL}/admin/groupe_competences`, Number(`${id}`));
   }
+  updateGroupeCompetence(objet:any,id: number){
+    return this.http.put(`${this.API_URL}/admin/groupe_competences/${id}`,objet)
+      .pipe(
+        map(g => {
+          return g;
+        })
+      );
+  }
 }

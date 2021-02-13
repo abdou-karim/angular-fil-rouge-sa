@@ -7,7 +7,7 @@
   </div>
   <div class="matCardeDiv">
     <app-item-referentiels
-      *ngFor="let item of referentiel"
+      *ngFor="let item of referentiel; let i=index"  [index]="i"
       [presentation]="item.presentation"
       [Cricteredadmission]="item.cricterDadmissions"
       [Cricteredevaluation]="item.cricterDevaluations"
@@ -15,6 +15,8 @@
       [programme]="item.programme"
       [grpcompetenceModele]="item.groupeCompetence"
       (getvalueFlex)="getvalue($event)"
+      [idRef]="item.id"
+      (loadRef)="getLoadRef($event)"
       fxFlex="{{valueFlex}}"></app-item-referentiels>
 
   </div>

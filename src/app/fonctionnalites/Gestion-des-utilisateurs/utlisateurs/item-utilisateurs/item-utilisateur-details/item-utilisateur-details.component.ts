@@ -28,4 +28,5 @@ export class ItemUtilisateurDetailsComponent implements OnInit {
       }
     );
   }
+
 }

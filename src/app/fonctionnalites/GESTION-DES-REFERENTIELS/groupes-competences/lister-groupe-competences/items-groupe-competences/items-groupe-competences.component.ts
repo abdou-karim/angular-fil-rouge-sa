@@ -5,6 +5,7 @@ import {Competences, GroupeCompetence, Tags} from '../../../../../modeles';
 import {Observable} from 'rxjs';
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+import Swal from 'sweetalert2';
 // @ts-ignore
 pdfMake.vsf = pdfFonts.pdfMake.vsf;
 
@@ -61,14 +62,31 @@ export class ItemsGroupeCompetencesComponent implements OnInit {
  // @ts-ignore
   // tslint:disable-next-line:typedef
   @Input() deleteGroupe(id: number){
-    if (confirm('Confirmer la suppression')){
-      return this.competenceService.deleteGroupeCompetenc(Number(`${id}`))
-        .subscribe(
-          () => {
-            this.getGrpCompetence.emit(true);
-          }
-        );
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "Vous ne pourrez pas revenir en arrière!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.competenceService.deleteGroupeCompetenc(Number(`${id}`))
+          .subscribe(
+            () => {
+              this.getGrpCompetence.emit(true);
+            }
+          );
+        Swal.fire(
+          'Deleted!',
+          'u' +
+          'Groupe Commpetence  supprimé.',
+          'success'
+        )
+      }
+    })
   }
   // tslint:disable-next-line:typedef
   downloadPdf() {
@@ -78,9 +96,9 @@ export class ItemsGroupeCompetencesComponent implements OnInit {
   }
   ViewProgramme(data: any){
     console.log(data);
-   /* const programme = { contents: 'dfsdd,fdlfdfs:f:;dsds'};
+    const programme = { contents: 'dfsdd,fdlfdfs:f:;dsds'};
     // @ts-ignore
-    pdfMake.createPdf(programme).open()*/
+    pdfMake.createPdf(programme).open();
   }
   sendIdGroupeCompetence(id: number){
     return this.competenceService.getGrpCompetenceById(id)

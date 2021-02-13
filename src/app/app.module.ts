@@ -41,6 +41,7 @@ import {
   IgxChipsModule,
   IgxIconModule
 } from 'igniteui-angular';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
 
 
 
@@ -93,6 +94,8 @@ import {
         FormsModule,
       IgxChipsModule,
       IgxIconModule,
+      NgxCsvParserModule
+
 
     ],
   providers: [

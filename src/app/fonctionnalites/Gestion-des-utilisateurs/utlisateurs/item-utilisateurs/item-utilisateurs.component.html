@@ -3,7 +3,7 @@
 
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
       <th mat-header-cell *matHeaderCellDef>
-        <span *ngIf="col !== '$$edit' && col !== '$$supp' && col !== '$$liste'"  >
+        <span *ngIf="col !== '$$edit' && col !== '$$supp' && col !== '$$liste' && col!=='$$cEtudiant' "  >
           <h1 style="font-family: cursive;">{{col}}</h1>
         </span>
       </th>
@@ -30,22 +30,25 @@
         </div>
         <div *ngIf="element.isEdit">
           <div  *ngIf="col === '$$edit'; else dataField" style="">
-            <button mat-icon-button (click)="element.isEdit = !element.isEdit" ><mat-icon (click)="onUpdate(element)">done_outline</mat-icon></button>
+            <button mat-icon-button (click)="element.isEdit = !element.isEdit" ><mat-icon (click)="onUpdate(element.id)">done_outline</mat-icon></button>
           </div>
           <form>
           <ng-template #dataField>
-            <mat-form-field *ngIf="col !== '$$supp' && col !=='$$liste' && col !== 'photo'  && col !== 'profile'" >
+            <mat-form-field *ngIf="col !== '$$supp' && col !=='$$liste' && col !== 'photo'  && col !== 'profile' && col !=='$$cEtudiant' " >
               <mat-label>{{col}}</mat-label>
               <label>
-                <input matInput [type]="'dataSchema[col]'" value="{{element[col]}}">
+                <input #valuiNP matInput [type]="'dataSchema[col]'" (change)="getModif(col,valuiNP.value,element.id)"  placeholder="{{element[col]}}">
               </label>
             </mat-form-field>
-            <mat-form-field appearance="fill" *ngIf="col !== '$$supp' && col !=='$$liste' && col === 'photo'">
+            <mat-form-field appearance="fill" *ngIf="col !== '$$supp' && col !=='$$liste'  && col === 'photo'">
               <mat-label>Basic fill input</mat-label>
               <ngx-mat-file-input placeholder="Basic fill placeholder" ></ngx-mat-file-input>
             </mat-form-field>
           </ng-template>
           </form>
+        </div>
+        <div *ngIf="col ==='$$cEtudiant' ">
+          <button mat-icon-button (click)="genereCarteEtudiant(element)" color="warn"><mat-icon>contacts</mat-icon></button>
         </div>
       </td>
     </ng-container>

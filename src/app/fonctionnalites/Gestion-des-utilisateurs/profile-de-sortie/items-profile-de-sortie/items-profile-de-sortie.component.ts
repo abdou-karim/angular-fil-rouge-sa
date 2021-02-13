@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Profile} from '../../../../modeles';
 import {ProfileSortieService} from '../../../../_services/profileSortie/profile-sortie.service';
+import Swal from 'sweetalert2';
 
 /*const ELEMENT_DATA: Profile[] =
   [
@@ -50,6 +51,7 @@ export class ItemsProfileDeSortieComponent implements OnInit {
   PnomPerPage: number;
   disableBtnP: boolean = false;
   disableBtnN: boolean = false;
+  MyBo: boolean = false;
   constructor(private profilSortieService: ProfileSortieService) { }
 
   displayedColumns: string[] = ['libelle' , '$$edit', '$$supp'];
@@ -71,7 +73,6 @@ export class ItemsProfileDeSortieComponent implements OnInit {
         this.totalItems = data['hydra:totalItems'];
         // @ts-ignore
         this.PnomPerPage = this.profileSortie.length;
-        console.log(this.profileSortie.length);
       }
     );
   }
@@ -108,12 +109,43 @@ export class ItemsProfileDeSortieComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   delete(id: number){
-    if (confirm('Confirmer la suppression')){
-       this.profilSortieService.delete(Number(`${id}`)).subscribe(
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "Vous ne pourrez pas revenir en arrière!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.profilSortieService.delete(Number(`${id}`)).subscribe(
+          () => {
+            this.getProfilSortie();
+          }
+        );
+        Swal.fire(
+          'Deleted!',
+          'u' +
+          'Profile  supprimé.',
+          'success'
+        )
+      }
+    })
+  }
+  getValueUpdated(value: string,id: number){
+    let profilSortie ={libelle: value}
+    this.profilSortieService.updateProfilSortie(profilSortie,Number(`${id}`))
+      .subscribe(
         () => {
-          this.getProfilSortie();
+        this.MyBo = true;
         }
       );
+  }
+  reloadProfil(){
+    if (this.MyBo){
+      this.getProfilSortie()
     }
   }
 }

@@ -21,11 +21,12 @@ import {AuthGuard} from './_helpers/auth.guard';
 const routes: Routes =
   [
     {
-      path: 'login', component: LoginComponent
+      path: '', redirectTo: 'admin', pathMatch: 'full'
     },
     {
-      path: '', redirectTo: 'admin', pathMatch: 'full', canActivate: [AuthGuard]
+      path: 'login', component: LoginComponent
     },
+
     {
       path: 'admin', component: PromotionComponent, canActivate: [AuthGuard]
     },
@@ -54,6 +55,9 @@ const routes: Routes =
     },
     {
       path: 'add-groupe-competence', component: CreateGroupeCompetenceComponent, canActivate: [AuthGuard]
+    },
+    {
+      path: "edit-groupe-competence/:id", component: CreateGroupeCompetenceComponent, canActivate:[AuthGuard]
     },
     {
       path: 'lister-competences', component: ListerCompetencesComponent, canActivate: [AuthGuard]

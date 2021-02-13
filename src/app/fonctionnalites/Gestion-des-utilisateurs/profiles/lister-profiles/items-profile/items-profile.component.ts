@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Profile} from '../../../../../modeles';
 import {ProfileService} from '../../../../../_services/profile/profile.service';
+import Swal from 'sweetalert2';
 
 
 /*const ELEMENT_DATA: Profile[] =
@@ -31,6 +32,7 @@ export class ItemsProfileComponent implements OnInit {
   showDiv: boolean = false;
   // @ts-ignore
   profilId: number;
+  myBoo = false;
   dataSchema = USER_SCHEMA;
 
   constructor(private profilService: ProfileService) { }
@@ -48,17 +50,48 @@ export class ItemsProfileComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   deleteProfil(id: number) {
-    if (confirm('Confirmer la suppression')) {
-      this.profilService.delete(Number(`${id}`)).subscribe(
-        () => {
-          this.getProfile();
-        }
-      );
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "Vous ne pourrez pas revenir en arrière!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.profilService.delete(Number(`${id}`)).subscribe(
+          () => {
+            this.getProfile();
+          }
+        );
+        Swal.fire(
+          'Deleted!',
+          'u' +
+          'Profile  supprimé.',
+          'success'
+        )
+      }
+    })
   }
   // tslint:disable-next-line:typedef
   getProfilId(id: number){
     this.profilId = id;
     this.showDiv = ! this.showDiv;
+  }
+
+  getValue(id:number, value: string) {
+    let Profil = {libelle: value};
+    this.profilService.updateprofil(Profil,Number(`${id}`))
+      .subscribe(
+        () => {
+        this.myBoo = true;
+        }
+      );
+  }
+  reloadP(){
+    if (this.myBoo)
+      this.getProfile();
   }
 }

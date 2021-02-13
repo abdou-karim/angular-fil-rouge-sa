@@ -18,7 +18,7 @@ export class ReferentielService {
   };
   // tslint:disable-next-line:typedef
   getReferentielR(value: number){
-    return this.geneService.getAll(`${this.API_URL}/admin/referentiels?page=${value}`);
+    return this.geneService.getAll(`${this.API_URL}/admin/referentiels?page=${value}&archivage=false`);
   }
 
   postReferentiel(objct: FormData){
@@ -46,5 +46,8 @@ export class ReferentielService {
           return reponse;
         })
       );
+  }
+  deleteRef(id:number){
+    return this.geneService.delete(`${this.API_URL}/admin/referentiels`, Number(`${id}`));
   }
 }

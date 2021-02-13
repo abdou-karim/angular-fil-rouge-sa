@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NavBarService} from '../../../_services';
-import {Router, Routes} from '@angular/router';
+import {ActivatedRoute, Router, Routes} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../_services/authentification/auth.service';
 import {first} from 'rxjs/operators';
@@ -16,8 +16,11 @@ export class LoginFormulaireComponent implements OnInit {
   // @ts-ignore
   loginForm: FormGroup;
   submitted = false;
+  // @ts-ignore
+  returnUrl: string;
   // tslint:disable-next-line:max-line-length
-  constructor(private etatNavbar: NavBarService, private router: Router, private formBuilder: FormBuilder, private authService: AuthService) { }
+  constructor(private etatNavbar: NavBarService, private router: Router,
+              private formBuilder: FormBuilder, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -38,7 +41,6 @@ export class LoginFormulaireComponent implements OnInit {
       .subscribe(
         (data) => {
           this.authService.setBoolEtatConnection(true);
-          this.authService.decodeToken();
         }
       );
   }

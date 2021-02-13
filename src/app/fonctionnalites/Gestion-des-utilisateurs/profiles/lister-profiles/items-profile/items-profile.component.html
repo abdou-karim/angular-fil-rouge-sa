@@ -23,13 +23,13 @@
       </div>
       <div *ngIf="element.isEdit">
         <div  *ngIf="col === '$$edit'; else dataField" style="">
-          <button mat-icon-button (click)="element.isEdit = !element.isEdit" ><mat-icon>done_outline</mat-icon></button>
+          <button mat-icon-button (click)="element.isEdit = !element.isEdit" (click)="reloadP()"><mat-icon>done_outline</mat-icon></button>
         </div>
         <ng-template #dataField>
           <mat-form-field *ngIf="col !== '$$supp' && col !=='$$liste'">
             <mat-label>{{col}}</mat-label>
             <label>
-              <input matInput [type]="'dataSchema[col]'" value="{{element[col]}}">
+              <input #inputP matInput [type]="'dataSchema[col]'" (change)="getValue(element.id,inputP.value)" value="{{element[col]}}">
             </label>
           </mat-form-field>
         </ng-template>

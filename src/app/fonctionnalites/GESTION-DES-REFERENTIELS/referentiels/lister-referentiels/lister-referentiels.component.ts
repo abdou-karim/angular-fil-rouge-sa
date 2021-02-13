@@ -75,4 +75,7 @@ getReferentiel(){
   getvalue(event: number){
     this.valueFlex = event;
   }
+  getLoadRef(idRef: any){
+    this.getReferentiel();
+  }
 }

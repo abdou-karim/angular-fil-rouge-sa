@@ -9,6 +9,7 @@ import {UsersService} from '../../../../_services/users/users.service';
 import {Utilisateur} from '../../../../modeles';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {PromoService} from '../../../../_services/promotion/promo.service';
+import {NgxCsvParser, NgxCSVParserError} from 'ngx-csv-parser';
 export interface Fruit {
   name: string;
 }
@@ -65,11 +66,14 @@ export class CreatePromotionComponent implements OnInit {
   // @ts-ignore
   UserPerPage: number;
   isOptional = false;
+  csvRecords: any[] = [];
+  header = false;
   // @ts-ignore
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
   // @ts-ignore
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
-  constructor(private fb: FormBuilder, private referentielService: ReferentielService, private UserService: UsersService, private promoSercice: PromoService) { }
+  constructor(private fb: FormBuilder, private referentielService: ReferentielService,
+              private UserService: UsersService, private promoSercice: PromoService, private ngxParser: NgxCsvParser) { }
   // @ts-ignore
   myForm: FormGroup;
   ngOnInit(): void {
@@ -204,6 +208,32 @@ export class CreatePromotionComponent implements OnInit {
     const payload = new FormData();
     payload.append('data', evt[0]);
     // Nous pouvons maintenant uploader le fichier en lancant une requete POST avec la variable payload comme corps de requete :)
+  }
+  uploadFileCVS(evt: any){
+    // Parse the file you want to select for the operation along with the configuration
+    this.ngxParser.parse(evt[0], { header: this.header, delimiter: ',' })
+      .pipe().subscribe((result: any) => {
+
+     // console.log('Result', result);
+      let colone = result[0];
+      this.csvRecords = result;
+      for (let i=0;i<this.csvRecords.length;i++){
+        console.log(this.csvRecords[i]);
+        for (let h=0;h<this.csvRecords[i].length;h++){
+          if(colone[h] ==='email' && this.csvRecords[i][h] !=='email'){
+            //console.log(this.csvRecords[i][h]);
+            if(this.tabApprenant.indexOf(this.csvRecords[i][h]) ===-1){
+              this.tabApprenant.push(this.csvRecords[i][h]);
+            }
+
+          }
+
+        }
+
+      }
+    }, (error: NgxCSVParserError) => {
+      console.log('Error', error);
+    });
   }
   // tslint:disable-next-line:typedef
   onCreate(){

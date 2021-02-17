@@ -8,19 +8,20 @@ export interface Utilisateur {
     id: number,
     libelle: string
   };
-  profilSortie: {
+  profilSortie?: {
+    id: number,
     libelle: string
   };
-  groupe: [
+  groupe?: [
     {
       nom: string;
       status: string;
       typeDeGroupe: string;
     }
   ];
-  genre: string;
-  adresse: string;
-  telephone: string;
-  statut: string;
+  genre?: string;
+  adresse?: string;
+  telephone?: string;
+  statut?: string;
   token: string;
 }

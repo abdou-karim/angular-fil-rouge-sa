@@ -24,3 +24,18 @@ td, th {
   width:100px;
   height:100px;
 }
+.carteEtudiant{
+  border:2px solid #CCC;
+  width:50%;
+  height:auto;
+  margin:0 auto;
+}
+.bshadow {
+
+  float:left;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(5px 5px 5px #222222);
+  opacity: .5;
+
+}

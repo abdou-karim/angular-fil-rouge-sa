@@ -13,6 +13,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {Tag} from 'primeng/tag';
 import {ActivatedRoute, Router} from '@angular/router';
 import {log} from 'util';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -169,7 +170,18 @@ export class FormulaireGroupeCompetenceComponent implements OnInit{
       .subscribe(
         () => {
           this.addGroupeCompetenceForm.reset();
-          this.router.navigate(['/lister-groupes-competences']);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Success',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          setTimeout(
+            ()=>
+            {
+              this.router.navigate(['/lister-groupes-competences']);
+            },1600)
         }
       );
   }
@@ -179,7 +191,18 @@ export class FormulaireGroupeCompetenceComponent implements OnInit{
       .pipe(first())
       .subscribe(
         () => {
-          this.router.navigate(['/lister-groupes-competences']);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Success',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          setTimeout(
+            ()=>
+            {
+              this.router.navigate(['/lister-groupes-competences']);
+            },1600)
         }
       )
   }

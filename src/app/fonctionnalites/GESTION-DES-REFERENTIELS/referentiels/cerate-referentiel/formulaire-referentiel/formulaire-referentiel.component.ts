@@ -8,6 +8,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {CompetencesService, ReferentielService} from '../../../../../_services';
 import {GroupeCompetence} from '../../../../../modeles';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulaire-referentiel',
@@ -175,7 +176,19 @@ export class FormulaireReferentielComponent implements OnInit {
       formData.append('cricterDadmissions',JSON.stringify(this.Cricadmission));
    this.RefService.postReferentiel(formData).subscribe(
      () => {
-        this.route.navigate(['liste-referentiel'])
+       Swal.fire({
+         position: 'top-end',
+         icon: 'success',
+         title: 'Success',
+         showConfirmButton: false,
+         timer: 1500,
+       })
+       setTimeout(
+         ()=>
+         {
+           this.route.navigate(['liste-referentiel'])
+         },1600)
+
       }
     );
   }

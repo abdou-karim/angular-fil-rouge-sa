@@ -52,11 +52,13 @@ export class AuthService {
     if(this.currentUserValue !== null){
       localStorage.removeItem('currentUser');
       localStorage.removeItem(this.currentUserValue.token);
-      // @ts-ignore
-      this.currentUserSubject.next(null);
-      this.setBoolEtatConnection(false);
-      this.router.navigate(['/login']);
     }
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem(this.currentUserValue.token);
+    // @ts-ignore
+    this.currentUserSubject.next(null);
+    this.setBoolEtatConnection(false);
+    this.router.navigate(['/login']);
 
   }
   // tslint:disable-next-line:typedef

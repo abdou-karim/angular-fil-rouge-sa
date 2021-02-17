@@ -42,6 +42,7 @@ import {
   IgxIconModule
 } from 'igniteui-angular';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
+import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
 
 
 
@@ -94,7 +95,8 @@ import { NgxCsvParserModule } from 'ngx-csv-parser';
         FormsModule,
       IgxChipsModule,
       IgxIconModule,
-      NgxCsvParserModule
+      NgxCsvParserModule,
+      NgxQRCodeModule
 
 
     ],

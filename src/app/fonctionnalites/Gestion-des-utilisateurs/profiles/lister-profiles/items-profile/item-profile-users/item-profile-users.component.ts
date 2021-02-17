@@ -12,10 +12,13 @@ export class ItemProfileUsersComponent implements OnInit {
   // @ts-ignore
   @Input() userIdprofile: number;
   // @ts-ignore
+  @Input() libelleProfil: string;
+  // @ts-ignore
   profile: Utilisateur[] ;
   // @ts-ignore
   libelle: string;
-  displayedColumns: string[] = ['username', 'email' , 'fisrtname', 'profilSortie', 'adresse', 'telephone', 'statut', 'groupes' ];
+ // displayedColumns: string[] = ['username', 'email' , 'fisrtname', 'profilSortie', 'adresse', 'telephone', 'statut', 'groupes' ];
+  displayedColumns: string[] = [];
   myBoll: boolean = false;
   constructor(private profileService: ProfileService, private route: ActivatedRoute) { }
 
@@ -29,8 +32,19 @@ export class ItemProfileUsersComponent implements OnInit {
       data => {
         // tslint:disable-next-line:no-unused-expression
         // @ts-ignore
+        data[hydra].find(
+          (p: Utilisateur) => {
+            console.log(p);
+          if(this.libelleProfil === "Administrateur" || this.libelleProfil === "Formateur" || this.libelleProfil === "Community Manager") {
+            this.displayedColumns = ['username', 'email' , 'fisrtname']
+          }
+          else {
+            this.displayedColumns = ['username', 'email' , 'fisrtname', 'profilSortie', 'adresse', 'telephone', 'statut', 'groupes']
+          }
+          }
+        )
+        // @ts-ignore
         this.profile = data[hydra];
-        //console.log(this.profile);
       }
     );
   }

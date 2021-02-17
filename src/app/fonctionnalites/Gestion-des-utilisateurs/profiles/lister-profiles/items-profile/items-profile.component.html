@@ -19,7 +19,7 @@
         <button mat-icon-button (click)="deleteProfil(element.id)" ><mat-icon>delete</mat-icon></button>
       </div>
       <div  *ngIf="col === '$$liste'">
-        <button mat-raised-button (click)="getProfilId(element.id)"  style="font-family: 'Cormorant Garamond', serif;">{{'Liste ' + element.libelle}}</button>
+        <button mat-raised-button (click)="getProfilId(element.id,element.libelle)"  style="font-family: 'Cormorant Garamond', serif;">{{'Liste ' + element.libelle}}</button>
       </div>
       <div *ngIf="element.isEdit">
         <div  *ngIf="col === '$$edit'; else dataField" style="">
@@ -41,6 +41,6 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <div class="seeDetails mat-elevation-z8" *ngIf="showDiv">
-  <app-item-profile-users [userIdprofile]="profilId"></app-item-profile-users>
+  <app-item-profile-users [userIdprofile]="profilId" [libelleProfil]="libelleP"></app-item-profile-users>
 </div>
 

@@ -88,18 +88,6 @@ export class ItemsGroupeCompetencesComponent implements OnInit {
       }
     })
   }
-  // tslint:disable-next-line:typedef
-  downloadPdf() {
-    const programme = { contents: 'dfsdd,fdlfdfs:f:;dsds'};
-    // @ts-ignore
-    pdfMake.createPdf(programme).download();
-  }
-  ViewProgramme(data: any){
-    console.log(data);
-    const programme = { contents: 'dfsdd,fdlfdfs:f:;dsds'};
-    // @ts-ignore
-    pdfMake.createPdf(programme).open();
-  }
   sendIdGroupeCompetence(id: number){
     return this.competenceService.getGrpCompetenceById(id)
       .subscribe(

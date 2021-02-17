@@ -26,7 +26,7 @@
           <button mat-icon-button (click)="deleteUser(element.id)" ><mat-icon>delete</mat-icon></button>
         </div>
         <div  *ngIf="col === '$$liste'">
-          <button mat-icon-button (click)="getIdUser(element.id)" ><mat-icon>visibility</mat-icon></button>
+          <button mat-icon-button  [disabled]="element.profils.libelle === 'Administrateur' || element.profils.libelle === 'Formateur' || element.profils.libelle === 'Community Manager' " (click)="getIdUser(element.id)" ><mat-icon>visibility</mat-icon></button>
         </div>
         <div *ngIf="element.isEdit">
           <div  *ngIf="col === '$$edit'; else dataField" style="">
@@ -42,13 +42,14 @@
             </mat-form-field>
             <mat-form-field appearance="fill" *ngIf="col !== '$$supp' && col !=='$$liste'  && col === 'photo'">
               <mat-label>Basic fill input</mat-label>
-              <ngx-mat-file-input placeholder="Basic fill placeholder" ></ngx-mat-file-input>
+              <ngx-mat-file-input #photoValu placeholder="Basic fill placeholder" accept="image/*" appUpload (onChnageFile)="uploadFile($event)" ></ngx-mat-file-input>
+
             </mat-form-field>
           </ng-template>
           </form>
         </div>
         <div *ngIf="col ==='$$cEtudiant' ">
-          <button mat-icon-button (click)="genereCarteEtudiant(element)" color="warn"><mat-icon>contacts</mat-icon></button>
+          <button mat-icon-button (click)="genereCarteEtudiant(element)"  color="warn"><mat-icon>contacts</mat-icon></button>
         </div>
       </td>
     </ng-container>
@@ -70,5 +71,37 @@
 <div class="seeDetails mat-elevation-z8 divdown" *ngIf="showdiv">
 <app-item-utilisateur-details [IdUser]="userId">
 </app-item-utilisateur-details>
+</div>
+<div class="carteEtudiant" *ngIf="carteEbool" id="htmData">
+  <mat-card class="example-card" >
+    <div>
+      <div mat-card-avatar class="example-header-image"><img src="assets/img/sonatel.png" width="100" alt="Sonatel Academi" fxFlex="80%">
+      </div>
+      <h3><p>SONATEL ACADEMY</p></h3>
+    </div>
+    <div>
+      <p style="float:right">
+        <img  src="{{'data:image/jpeg;base64,' + userCarte.photo}}" width="150px" alt="{{userCarte.username}}">
+      </p>
+      <mat-divider></mat-divider>
+      <p style="font-weight: bold">Username</p>
+      <span>{{userCarte.username}}</span>
+      <mat-divider></mat-divider>
+      <p style="font-weight: bold">Email</p>
+      <span>{{userCarte.email}}</span>
+      <mat-divider></mat-divider>
+      <p style="font-weight: bold">Profile</p>
+      <span>{{userCarte.profils.libelle}}</span>
+      <mat-divider></mat-divider>
+      <span>
+        <ngx-qrcode
+          [elementType]="elementType"
+          [errorCorrectionLevel]="correctionLevel"
+          [value]="value"
+          cssClass="bshadow"></ngx-qrcode>
+      </span>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-card>
 </div>
 

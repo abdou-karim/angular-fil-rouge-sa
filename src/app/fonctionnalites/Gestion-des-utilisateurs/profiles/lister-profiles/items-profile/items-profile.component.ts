@@ -32,6 +32,8 @@ export class ItemsProfileComponent implements OnInit {
   showDiv: boolean = false;
   // @ts-ignore
   profilId: number;
+  // @ts-ignore
+  libelleP: string;
   myBoo = false;
   dataSchema = USER_SCHEMA;
 
@@ -76,8 +78,9 @@ export class ItemsProfileComponent implements OnInit {
     })
   }
   // tslint:disable-next-line:typedef
-  getProfilId(id: number){
+  getProfilId(id: number,libelle: string){
     this.profilId = id;
+    this.libelleP = libelle;
     this.showDiv = ! this.showDiv;
   }
 

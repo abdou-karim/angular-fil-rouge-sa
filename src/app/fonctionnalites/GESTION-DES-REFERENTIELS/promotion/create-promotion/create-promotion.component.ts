@@ -10,6 +10,7 @@ import {Utilisateur} from '../../../../modeles';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {PromoService} from '../../../../_services/promotion/promo.service';
 import {NgxCsvParser, NgxCSVParserError} from 'ngx-csv-parser';
+import Swal from 'sweetalert2';
 export interface Fruit {
   name: string;
 }
@@ -298,7 +299,13 @@ if (email_regex.test(value.trim())){
       this.referentielService.sendEmailAndAddAppRef(Number(`${id}`),this.secondFormGroup.value)
         .subscribe(
           () => {
-            alert("success")
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Email envoyé avec success',
+              showConfirmButton: false,
+              timer: 1500
+            })
           }
         );
     }
@@ -307,7 +314,13 @@ if (email_regex.test(value.trim())){
     return this.referentielService.sendOneEmailAndAddAppRef(Number(`${id}`),email)
       .subscribe(
         () => {
-          alert("success")
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Email envoyé avec success',
+            showConfirmButton: false,
+            timer: 1500
+          })
         }
       );
   }
@@ -329,7 +342,15 @@ if (email_regex.test(value.trim())){
    formData.append('avatar',this.fileData);
   this.promoSercice.addPromotion(formData).subscribe(
     data => {
-     alert(data)
+
+
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
   );
   }
